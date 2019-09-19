@@ -10,7 +10,6 @@
 
 using System;
 using System.Text;
-using System.Collections;
 using System.ComponentModel;
 
 namespace RtfDomParser
@@ -66,7 +65,7 @@ namespace RtfDomParser
         /// <summary>
         /// the docuemnt which owned this element
         /// </summary>
-        [System.ComponentModel.Browsable( false )]
+        [Browsable( false )]
         [System.Xml.Serialization.XmlIgnore()]
         public RTFDomDocument OwnerDocument
         {
@@ -77,7 +76,7 @@ namespace RtfDomParser
             set
             {
                 myOwnerDocument = value;
-                foreach (RTFDomElement element in this.Elements)
+                foreach (RTFDomElement element in Elements)
                 {
                     element.OwnerDocument = value;
                 }
@@ -92,7 +91,7 @@ namespace RtfDomParser
         {
             CheckLocked();
             element.myParent = this;
-            element.OwnerDocument = this.myOwnerDocument;
+            element.OwnerDocument = myOwnerDocument;
             return myElements.Add(element);
         }
 
@@ -104,14 +103,14 @@ namespace RtfDomParser
         public void SetAttribute(string name, int Value)
         {
             CheckLocked();
-            this.myAttributes[name] = Value;
+            myAttributes[name] = Value;
         }
 
         private RTFDomElement myParent = null;
         /// <summary>
         /// parent element
         /// </summary>
-        [System.ComponentModel.Browsable( false )]
+        [Browsable( false )]
         public RTFDomElement Parent
         {
             get
@@ -120,15 +119,15 @@ namespace RtfDomParser
             }
         }
 
-        [System.ComponentModel.Browsable( false )]
+        [Browsable( false )]
         public virtual string InnerText
         {
             get
             {
-                StringBuilder str = new StringBuilder();
+                var str = new StringBuilder();
                 if (myElements != null)
                 {
-                    foreach (RTFDomElement element in this.myElements)
+                    foreach (RTFDomElement element in myElements)
                     {
                         str.Append(element.InnerText);
                     }
@@ -151,7 +150,7 @@ namespace RtfDomParser
         /// Whether element is locked , if element is lock , it can not append chidl element
         /// </summary>
         [System.Xml.Serialization.XmlIgnore( )]
-        [System.ComponentModel.Browsable( false )]
+        [Browsable( false )]
         public bool Locked
         {
             get 
@@ -166,8 +165,8 @@ namespace RtfDomParser
 
         public void SetLockedDeeply( bool locked )
         {
-            this.bolLocked = locked;
-            if (this.myElements != null)
+            bolLocked = locked;
+            if (myElements != null)
             {
                 foreach (RTFDomElement element in myElements)
                 {
@@ -178,18 +177,18 @@ namespace RtfDomParser
 
         public void PrintDomString()
         {
-            System.Console.WriteLine(this.ToDomString());
+            Console.WriteLine(ToDomString());
         }
 
         public virtual string ToDomString()
         {
-            System.Text.StringBuilder builder = new StringBuilder();
-            builder.Append(this.ToString());
-            ToDomString(this.Elements, builder, 1);
+            var builder = new StringBuilder();
+            builder.Append(ToString());
+            ToDomString(Elements, builder, 1);
             return builder.ToString();
         }
 
-        protected void ToDomString(RTFDomElementList elements, System.Text.StringBuilder builder, int level)
+        protected void ToDomString(RTFDomElementList elements, StringBuilder builder, int level)
         {
             foreach (RTFDomElement element in elements)
             {

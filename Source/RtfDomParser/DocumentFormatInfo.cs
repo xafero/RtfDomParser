@@ -95,7 +95,7 @@ namespace RtfDomParser
 
         private bool bolBottomBorder = false;
         /// <summary>
-        /// ÊÇ·ñÏÔÊ¾ÏÂ±ß¿òÏß
+        /// ï¿½Ç·ï¿½ï¿½ï¿½Ê¾ï¿½Â±ß¿ï¿½ï¿½ï¿½
         /// </summary>
         [DefaultValue(false)]
         public bool BottomBorder
@@ -110,13 +110,13 @@ namespace RtfDomParser
             }
         }
 
-        private System.Drawing.Color intBorderColor
-            = System.Drawing.Color.Black;
+        private Color intBorderColor
+            = Color.Black;
         /// <summary>
         /// Border line color
         /// </summary>
-        [DefaultValue(typeof(System.Drawing.Color), "Black")]
-        public System.Drawing.Color BorderColor
+        [DefaultValue(typeof(Color), "Black")]
+        public Color BorderColor
         {
             get
             {
@@ -147,7 +147,7 @@ namespace RtfDomParser
 
         private DashStyle _BorderStyle = DashStyle.Solid;
         /// <summary>
-        /// ±ß¿òÏßÑùÊ½
+        /// ï¿½ß¿ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
         /// </summary>
         [DefaultValue( DashStyle.Solid )]
         public DashStyle BorderStyle
@@ -164,7 +164,7 @@ namespace RtfDomParser
 
         private bool _BorderThickness = false;
         /// <summary>
-        /// ²ÉÓÃ´Ö±ß¿òÏßÑùÊ½
+        /// ï¿½ï¿½ï¿½Ã´Ö±ß¿ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
         /// </summary>
         [DefaultValue( false )]
         public bool BorderThickness
@@ -181,7 +181,7 @@ namespace RtfDomParser
 
         private int _BorderSpacing = 0;
         /// <summary>
-        /// ±ß¿òÏß¾àÀë
+        /// ï¿½ß¿ï¿½ï¿½ß¾ï¿½ï¿½ï¿½
         /// </summary>
         [DefaultValue( 0 )]
         public int BorderSpacing
@@ -356,7 +356,7 @@ namespace RtfDomParser
 
         private bool _PageBreak = false;
         /// <summary>
-        /// ¶ÎÂäÇ°Ç¿ÖÆ·ÖÒ³
+        /// ï¿½ï¿½ï¿½ï¿½Ç°Ç¿ï¿½Æ·ï¿½Ò³
         /// </summary>
         [DefaultValue( false )]
         public bool PageBreak
@@ -370,24 +370,24 @@ namespace RtfDomParser
         /// </summary>
         public int NativeLevel = 0;
 
-        public void SetAlign(System.Drawing.StringAlignment align)
+        public void SetAlign(StringAlignment align)
         {
-            if (align == System.Drawing.StringAlignment.Center)
+            if (align == StringAlignment.Center)
             {
-                this.Align = RTFAlignment.Center;
+                Align = RTFAlignment.Center;
             }
-            else if (align == System.Drawing.StringAlignment.Far)
+            else if (align == StringAlignment.Far)
             {
-                this.Align = RTFAlignment.Right;
+                Align = RTFAlignment.Right;
             }
             else
             {
-                this.Align = RTFAlignment.Left;
+                Align = RTFAlignment.Left;
             }
         }
 
         [Browsable(false)]
-        public System.Drawing.Font Font
+        public Font Font
         {
             set
             {
@@ -403,7 +403,7 @@ namespace RtfDomParser
             }
         }
 
-        private string strFontName = System.Windows.Forms.Control.DefaultFont.Name;
+        private string strFontName = Constants.DefaultFontName;
         /// <summary>
         /// font name
         /// </summary>
@@ -522,12 +522,12 @@ namespace RtfDomParser
             }
         }
 
-        private System.Drawing.Color intTextColor = System.Drawing.Color.Black;
+        private Color intTextColor = Color.Black;
         /// <summary>
         /// text color
         /// </summary>
-        [DefaultValue(typeof(System.Drawing.Color), "Black")]
-        public System.Drawing.Color TextColor
+        [DefaultValue(typeof(Color), "Black")]
+        public Color TextColor
         {
             get
             {
@@ -539,12 +539,12 @@ namespace RtfDomParser
             }
         }
 
-        private System.Drawing.Color intBackColor = System.Drawing.Color.Empty;
+        private Color intBackColor = Color.Empty;
         /// <summary>
         /// back color
         /// </summary>
-        [DefaultValue(typeof(System.Drawing.Color), "Empty")]
-        public System.Drawing.Color BackColor
+        [DefaultValue(typeof(Color), "Empty")]
+        public Color BackColor
         {
             get
             {
@@ -557,7 +557,7 @@ namespace RtfDomParser
         }
 
         ///// <summary>
-        ///// ±ß¿òÏßÑÕÉ«
+        ///// ï¿½ß¿ï¿½ï¿½ï¿½ï¿½ï¿½É«
         ///// </summary>
         //public System.Drawing.Color BorderColor = System.Drawing.Color.Empty;
         private string strLink = null;
@@ -688,67 +688,67 @@ namespace RtfDomParser
                 return true;
             if (format == null)
                 return false;
-            if (this.Align != format.Align)
+            if (Align != format.Align)
                 return false;
-            if (this.BackColor != format.BackColor)
+            if (BackColor != format.BackColor)
                 return false;
-            if (this.Bold != format.Bold)
+            if (Bold != format.Bold)
                 return false;
-            if (this.BorderColor != format.BorderColor)
+            if (BorderColor != format.BorderColor)
                 return false;
-            if (this.LeftBorder != format.LeftBorder)
+            if (LeftBorder != format.LeftBorder)
                 return false;
-            if (this.TopBorder != format.TopBorder)
+            if (TopBorder != format.TopBorder)
                 return false;
-            if (this.RightBorder != format.RightBorder)
+            if (RightBorder != format.RightBorder)
                 return false;
-            if (this.BottomBorder != format.BottomBorder)
+            if (BottomBorder != format.BottomBorder)
                 return false;
-            if (this.BorderStyle != format.BorderStyle)
+            if (BorderStyle != format.BorderStyle)
                 return false;
-            if (this.BorderThickness != format.BorderThickness)
+            if (BorderThickness != format.BorderThickness)
                 return false;
-            if (this.BorderSpacing != format.BorderSpacing)
+            if (BorderSpacing != format.BorderSpacing)
                 return false;
-            if (this.ListID != format.ListID)
+            if (ListID != format.ListID)
             {
                 return false;
             }
-            if (this.FontName != format.FontName)
+            if (FontName != format.FontName)
                 return false;
-            if (this.FontSize != format.FontSize)
+            if (FontSize != format.FontSize)
                 return false;
-            if (this.Italic != format.Italic)
+            if (Italic != format.Italic)
                 return false;
-            if (this.Hidden != format.Hidden)
+            if (Hidden != format.Hidden)
                 return false;
-            if (this.LeftIndent != format.LeftIndent)
+            if (LeftIndent != format.LeftIndent)
                 return false;
-            if (this.LineSpacing != format.LineSpacing)
+            if (LineSpacing != format.LineSpacing)
                 return false;
-            if (this.Link != format.Link)
+            if (Link != format.Link)
                 return false;
-            if (this.Multiline != format.Multiline)
+            if (Multiline != format.Multiline)
                 return false;
-            if (this.NoWwrap != format.NoWwrap)
+            if (NoWwrap != format.NoWwrap)
                 return false;
-            if (this.ParagraphFirstLineIndent != format.ParagraphFirstLineIndent)
+            if (ParagraphFirstLineIndent != format.ParagraphFirstLineIndent)
                 return false;
-            if (this.Spacing != format.Spacing)
+            if (Spacing != format.Spacing)
                 return false;
-            if (this.StandTabWidth != format.StandTabWidth)
+            if (StandTabWidth != format.StandTabWidth)
                 return false;
-            if (this.Strikeout != format.Strikeout)
+            if (Strikeout != format.Strikeout)
                 return false;
-            if (this.Subscript != format.Subscript)
+            if (Subscript != format.Subscript)
                 return false;
-            if (this.Superscript != format.Superscript)
+            if (Superscript != format.Superscript)
                 return false;
-            if (this.TextColor != format.TextColor)
+            if (TextColor != format.TextColor)
                 return false;
-            if (this.Underline != format.Underline)
+            if (Underline != format.Underline)
                 return false;
-            if (this.ReadText != format.ReadText)
+            if (ReadText != format.ReadText)
                 return false;
             return true;
         }
@@ -759,7 +759,7 @@ namespace RtfDomParser
         /// <returns>new instance</returns>
         public DocumentFormatInfo Clone()
         {
-            return (DocumentFormatInfo)this.MemberwiseClone();
+            return (DocumentFormatInfo)MemberwiseClone();
 
             //DocumentFormatInfo format = new DocumentFormatInfo();
             //format.ParagraphFirstLineIndent = this.ParagraphFirstLineIndent;
@@ -801,48 +801,48 @@ namespace RtfDomParser
 
         public void ResetText()
         {
-            this.FontName = System.Windows.Forms.Control.DefaultFont.Name;
-            this.FontSize = 12;
-            this.Bold = false;
-            this.Italic = false;
-            this.Underline = false;
-            this.Strikeout = false;
-            this.TextColor = System.Drawing.Color.Black;
-            this.BackColor = System.Drawing.Color.Empty;
+            FontName = Constants.DefaultFontName;
+            FontSize = 12;
+            Bold = false;
+            Italic = false;
+            Underline = false;
+            Strikeout = false;
+            TextColor = Color.Black;
+            BackColor = Color.Empty;
             //this.Link = null ;
-            this.Subscript = false;
-            this.Superscript = false;
-            this.Multiline = true;
-            this.Hidden = false;
-            this.LeftBorder = false;
-            this.TopBorder = false;
-            this.RightBorder = false;
-            this.BottomBorder = false;
-            this.BorderStyle = DashStyle.Solid;
-            this.BorderSpacing = 0;
-            this.BorderThickness = false;
-            this.BorderColor = Color.Black ;
+            Subscript = false;
+            Superscript = false;
+            Multiline = true;
+            Hidden = false;
+            LeftBorder = false;
+            TopBorder = false;
+            RightBorder = false;
+            BottomBorder = false;
+            BorderStyle = DashStyle.Solid;
+            BorderSpacing = 0;
+            BorderThickness = false;
+            BorderColor = Color.Black ;
         }
 
         public void ResetParagraph()
         {
-            this.ParagraphFirstLineIndent = 0;
-            this.Align = 0;
-            this.ListID = -1;
-            this.LeftIndent = 0;
-            this.LineSpacing = 0;
-            this.PageBreak = false;
-            this.LeftBorder = false;
-            this.TopBorder = false;
-            this.RightBorder = false;
-            this.BottomBorder = false;
-            this.BorderStyle = DashStyle.Solid;
-            this.BorderSpacing = 0;
-            this.BorderThickness = false;
-            this.BorderColor = Color.Black  ;
-            this.MultipleLineSpacing = false;
-            this.SpacingBefore = 0;
-            this.SpacingAfter = 0;
+            ParagraphFirstLineIndent = 0;
+            Align = 0;
+            ListID = -1;
+            LeftIndent = 0;
+            LineSpacing = 0;
+            PageBreak = false;
+            LeftBorder = false;
+            TopBorder = false;
+            RightBorder = false;
+            BottomBorder = false;
+            BorderStyle = DashStyle.Solid;
+            BorderSpacing = 0;
+            BorderThickness = false;
+            BorderColor = Color.Black  ;
+            MultipleLineSpacing = false;
+            SpacingBefore = 0;
+            SpacingAfter = 0;
             //this.LeftBorder = false;
             //this.TopBorder = false;
             //this.RightBorder = false;
@@ -852,43 +852,43 @@ namespace RtfDomParser
 
         public void Reset()
         {
-            this.ParagraphFirstLineIndent = 0;
-            this.LeftIndent = 0;
-            this.LeftIndent = 0;
-            this.Spacing = 0;
-            this.LineSpacing = 0;
-            this.MultipleLineSpacing = false;
-            this.SpacingBefore = 0;
-            this.SpacingAfter = 0;
-            this.Align = 0;
-            this.FontName = System.Windows.Forms.Control.DefaultFont.Name;
-            this.FontSize = 12;
-            this.Bold = false;
-            this.Italic = false;
-            this.Underline = false;
-            this.Strikeout = false;
-            this.TextColor = System.Drawing.Color.Black;
-            this.BackColor = System.Drawing.Color.Empty;
-            this.Link = null;
-            this.Subscript = false;
-            this.Superscript = false;
-            this.ListID = -1;
-            this.Multiline = true;
-            this.NoWwrap = true;
+            ParagraphFirstLineIndent = 0;
+            LeftIndent = 0;
+            LeftIndent = 0;
+            Spacing = 0;
+            LineSpacing = 0;
+            MultipleLineSpacing = false;
+            SpacingBefore = 0;
+            SpacingAfter = 0;
+            Align = 0;
+            FontName = Constants.DefaultFontName;
+            FontSize = 12;
+            Bold = false;
+            Italic = false;
+            Underline = false;
+            Strikeout = false;
+            TextColor = Color.Black;
+            BackColor = Color.Empty;
+            Link = null;
+            Subscript = false;
+            Superscript = false;
+            ListID = -1;
+            Multiline = true;
+            NoWwrap = true;
 
 
-            this.LeftBorder = false;
-            this.TopBorder = false;
-            this.RightBorder = false;
-            this.BottomBorder = false;
-            this.BorderStyle = DashStyle.Solid;
-            this.BorderSpacing = 0;
-            this.BorderThickness = false;
-            this.BorderColor = Color.Black;
+            LeftBorder = false;
+            TopBorder = false;
+            RightBorder = false;
+            BottomBorder = false;
+            BorderStyle = DashStyle.Solid;
+            BorderSpacing = 0;
+            BorderThickness = false;
+            BorderColor = Color.Black;
 
-            this.ReadText = true;
-            this.NativeLevel = 0;
-            this.Hidden = false;
+            ReadText = true;
+            NativeLevel = 0;
+            Hidden = false;
         }
 
     }
@@ -953,7 +953,7 @@ namespace RtfDomParser
 
 //        private RTFBorderStyle _Border = new RTFBorderStyle();
 //        /// <summary>
-//        /// ±ß¿òÑùÊ½
+//        /// ï¿½ß¿ï¿½ï¿½ï¿½Ê½
 //        /// </summary>
 //        public RTFBorderStyle Border
 //        {
@@ -963,7 +963,7 @@ namespace RtfDomParser
 
 //        private RTFBorderStyle _ParagraphBorder = new RTFBorderStyle();
 //        /// <summary>
-//        /// ¶ÎÂä±ß¿òÑùÊ½
+//        /// ï¿½ï¿½ï¿½ï¿½ß¿ï¿½ï¿½ï¿½Ê½
 //        /// </summary>
 //        public RTFBorderStyle ParagraphBorder
 //        {
@@ -1145,7 +1145,7 @@ namespace RtfDomParser
 //            }
 //        }
 
-//        private string strFontName = System.Windows.Forms.Control.DefaultFont.Name;
+//        private string strFontName = RtfDomParser.Constants.DefaultFontName;
 //        /// <summary>
 //        /// font name
 //        /// </summary>
@@ -1299,7 +1299,7 @@ namespace RtfDomParser
 //        }
 
 //        ///// <summary>
-//        ///// ±ß¿òÏßÑÕÉ«
+//        ///// ï¿½ß¿ï¿½ï¿½ï¿½ï¿½ï¿½É«
 //        ///// </summary>
 //        //public System.Drawing.Color BorderColor = System.Drawing.Color.Empty;
 //        private string strLink = null;
@@ -1522,7 +1522,7 @@ namespace RtfDomParser
 
 //        public void ResetText()
 //        {
-//            this.FontName = System.Windows.Forms.Control.DefaultFont.Name;
+//            this.FontName = RtfDomParser.Constants.DefaultFontName;
 //            this.FontSize = 12;
 //            this.Bold = false;
 //            this.Italic = false;
@@ -1562,7 +1562,7 @@ namespace RtfDomParser
 //            this.Spacing = 0;
 //            this.LineSpacing = 0;
 //            this.Align = 0;
-//            this.FontName = System.Windows.Forms.Control.DefaultFont.Name;
+//            this.FontName = RtfDomParser.Constants.DefaultFontName;
 //            this.FontSize = 12;
 //            this.Bold = false;
 //            this.Italic = false;

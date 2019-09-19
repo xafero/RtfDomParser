@@ -29,7 +29,7 @@ namespace RtfDomParser
 
         internal bool TemplateGenerated = false;
         /// <summary>
-        /// ÊÇ·ñÊÇÁÙÊ±Éú³ÉµÄ¶ÎÂä¶ÔÏó
+        /// ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ÉµÄ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         public bool IsTemplateGenerated
         {
@@ -62,14 +62,14 @@ namespace RtfDomParser
         }
         public override string ToString()
         {
-            StringBuilder str = new StringBuilder();
+            var str = new StringBuilder();
             str.Append("Paragraph");
-            if (this.Format != null)
+            if (Format != null)
             {
-                str.Append("(" + this.Format.Align + ")");
-                if (this.Format.ListID >= 0)
+                str.Append("(" + Format.Align + ")");
+                if (Format.ListID >= 0)
                 {
-                    str.Append("ListID:" + this.Format.ListID);
+                    str.Append("ListID:" + Format.ListID);
                 }
                 //if (this.Format.NumberedList)
                 //{

@@ -9,7 +9,6 @@
 
 
 using System;
-using System.Text;
 
 namespace RtfDomParser
 {
@@ -44,7 +43,7 @@ namespace RtfDomParser
 
         public override string ToString()
         {
-            return "Table(Rows:" + this.Elements.Count + " Columns:" + myColumns.Count + ")";
+            return "Table(Rows:" + Elements.Count + " Columns:" + myColumns.Count + ")";
         }
     }
 }

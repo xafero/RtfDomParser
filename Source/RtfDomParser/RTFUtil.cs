@@ -25,10 +25,10 @@ namespace RtfDomParser
 
 
         /// <summary>
-        /// ÅÐ¶Ï¶ÔÏóÊÇ·ñÓÐÊµ¼ÊÄÚÈÝ
+        /// ï¿½Ð¶Ï¶ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         /// </summary>
-        /// <param name="rootElement">¸ùÔªËØ¶ÔÏó</param>
-        /// <returns>ÊÇ·ñÓÐÊµ¼ÊÄÚÈÝ</returns>
+        /// <param name="rootElement">ï¿½ï¿½Ôªï¿½Ø¶ï¿½ï¿½ï¿½</param>
+        /// <returns>ï¿½Ç·ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</returns>
         public static bool HasContentElement(RTFDomElement rootElement)
         {
             if (rootElement.Elements.Count == 0)
@@ -39,7 +39,7 @@ namespace RtfDomParser
             {
                 if (rootElement.Elements[0] is RTFDomParagraph)
                 {
-                    RTFDomParagraph p = (RTFDomParagraph)rootElement.Elements[0];
+                    var p = (RTFDomParagraph)rootElement.Elements[0];
                     if (p.Elements.Count == 0)
                     {
                         return false;
@@ -136,7 +136,7 @@ namespace RtfDomParser
 				_stream = new MemoryStream();
 
 				// Get a graphics context from the RichTextBox
-				using(_graphics = System.Drawing.Graphics.FromHwnd( new IntPtr( 0 ) ))
+				using(_graphics = Graphics.FromHwnd( new IntPtr( 0 ) ))
 				{
 
 					// Get the device context from the graphics context
@@ -159,24 +159,24 @@ namespace RtfDomParser
 				}
 
 				// Get the handle of the Enhanced Metafile
-				IntPtr _hEmf = _metaFile.GetHenhmetafile();
+				var _hEmf = _metaFile.GetHenhmetafile();
 
 				// A call to EmfToWmfBits with a null buffer return the size of the
 				// buffer need to store the WMF bits.  Use this to get the buffer
 				// size.
-				uint _bufferSize = GdipEmfToWmfBits(_hEmf, 0, null, MM_ANISOTROPIC,
+				var _bufferSize = GdipEmfToWmfBits(_hEmf, 0, null, MM_ANISOTROPIC,
 					EmfToWmfBitsFlags.EmfToWmfBitsFlagsDefault);
 
 				// Create an array to hold the bits
-				byte[] _buffer = new byte[_bufferSize];
+				var _buffer = new byte[_bufferSize];
 
 				// A call to EmfToWmfBits with a valid buffer copies the bits into the
 				// buffer an returns the number of bits in the WMF.  
-				uint _convertedSize = GdipEmfToWmfBits(_hEmf, _bufferSize, _buffer, MM_ANISOTROPIC,
+				var _convertedSize = GdipEmfToWmfBits(_hEmf, _bufferSize, _buffer, MM_ANISOTROPIC,
 					EmfToWmfBitsFlags.EmfToWmfBitsFlagsDefault);
 
 				// Append the bits to the RTF string
-				for(int i = 0; i < _buffer.Length; ++i) 
+				for(var i = 0; i < _buffer.Length; ++i) 
 				{
 					_rtf.Append(String.Format("{0:X2}", _buffer[i]));
 				}

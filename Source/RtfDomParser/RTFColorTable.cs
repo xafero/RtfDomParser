@@ -8,8 +8,6 @@
  */
 
 
-
-using System;
 using System.Collections ;
 
 namespace RtfDomParser
@@ -109,7 +107,7 @@ namespace RtfDomParser
 		/// <param name="c">color value</param>
 		public void Remove( System.Drawing.Color c )
 		{
-			int index = IndexOf( c );
+			var index = IndexOf( c );
 			if( index >= 0 )
 				myItems.RemoveAt( index );
 		}
@@ -128,9 +126,9 @@ namespace RtfDomParser
 			{
 				c = System.Drawing.Color.FromArgb( 255 , c );
 			}
-            for (int iCount = 0; iCount < myItems.Count; iCount++)
+            for (var iCount = 0; iCount < myItems.Count; iCount++)
             {
-                System.Drawing.Color color = (System.Drawing.Color)myItems[iCount];
+                var color = (System.Drawing.Color)myItems[iCount];
                 if (color.ToArgb() == c.ToArgb())
                 {
                     return iCount;
@@ -139,14 +137,14 @@ namespace RtfDomParser
 			return -1 ;
 		}
 		/// <summary>
-		/// Çå¿ÕÁÐ±í
+		/// ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
 		/// </summary>
 		public void Clear()
 		{
 			myItems.Clear();
 		}
 		/// <summary>
-		/// ÔªËØ¸öÊý
+		/// Ôªï¿½Ø¸ï¿½ï¿½ï¿½
 		/// </summary>
 		public int Count
 		{
@@ -154,17 +152,17 @@ namespace RtfDomParser
 		}
 
 		/// <summary>
-		/// Êä³öÑÕÉ«±í
+		/// ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½
 		/// </summary>
-		/// <param name="writer">RTFÎÄµµÊéÐ´Æ÷</param>
+		/// <param name="writer">RTFï¿½Äµï¿½ï¿½ï¿½Ð´ï¿½ï¿½</param>
 		public void Write( RTFWriter writer )
 		{
 			writer.WriteStartGroup();
 			writer.WriteKeyword( RTFConsts._colortbl );
 			writer.WriteRaw(";");
-			for( int iCount = 0 ; iCount < myItems.Count ; iCount ++ )
+			for( var iCount = 0 ; iCount < myItems.Count ; iCount ++ )
 			{
-				System.Drawing.Color c = ( System.Drawing.Color ) myItems[ iCount ] ;
+				var c = ( System.Drawing.Color ) myItems[ iCount ] ;
 				writer.WriteKeyword( "red" + c.R );
 				writer.WriteKeyword( "green" + c.G );
 				writer.WriteKeyword( "blue" + c.B );
@@ -174,15 +172,15 @@ namespace RtfDomParser
 		}
 
         /// <summary>
-        /// ¸´ÖÆ¶ÔÏó
+        /// ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½
         /// </summary>
-        /// <returns>¸´ÖÆÆ·</returns>
+        /// <returns>ï¿½ï¿½ï¿½ï¿½Æ·</returns>
         public RTFColorTable Clone()
         {
-            RTFColorTable table = new RTFColorTable();
-            for (int iCount = 0; iCount < myItems.Count; iCount++)
+            var table = new RTFColorTable();
+            for (var iCount = 0; iCount < myItems.Count; iCount++)
             {
-                System.Drawing.Color c = ( System.Drawing.Color ) myItems[ iCount ] ;
+                var c = ( System.Drawing.Color ) myItems[ iCount ] ;
                 table.myItems.Add(c);
             }
             return table;

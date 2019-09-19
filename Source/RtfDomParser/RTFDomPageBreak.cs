@@ -8,8 +8,6 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace RtfDomParser
 {
@@ -25,7 +23,7 @@ namespace RtfDomParser
         public RTFDomPageBreak()
         {
             //对象不能有子元素
-            this.Locked = true;
+            Locked = true;
         }
 
         public override string InnerText

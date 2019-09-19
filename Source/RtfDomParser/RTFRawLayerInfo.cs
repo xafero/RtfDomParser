@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RtfDomParser
+﻿namespace RtfDomParser
 {
     public class RTFRawLayerInfo
     {
@@ -36,7 +32,7 @@ namespace RtfDomParser
         }
         public RTFRawLayerInfo Clone()
         {
-            return (RTFRawLayerInfo)this.MemberwiseClone();
+            return (RTFRawLayerInfo)MemberwiseClone();
         }
     }
 }

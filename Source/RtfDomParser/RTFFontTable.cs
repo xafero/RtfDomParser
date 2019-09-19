@@ -22,7 +22,7 @@ namespace RtfDomParser
     /// </summary>
     [System.Diagnostics.DebuggerDisplay("Count={ Count }")]
     [System.Diagnostics.DebuggerTypeProxy(typeof(RTFInstanceDebugView))]
-	public class RTFFontTable : System.Collections.CollectionBase
+	public class RTFFontTable : CollectionBase
 	{
 
 		/// <summary>
@@ -77,7 +77,7 @@ namespace RtfDomParser
         /// <returns>font object</returns>
         public string GetFontName(int fontIndex)
         {
-            RTFFont font = this[fontIndex];
+            var font = this[fontIndex];
             if (font != null)
             {
                 return font.Name;
@@ -94,7 +94,7 @@ namespace RtfDomParser
 		/// <param name="f">font name</param>
 		public RTFFont Add( string f )
 		{
-            return Add(this.Count, f, Encoding.Default);
+            return Add(Count, f, Encoding.Default);
 		}
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace RtfDomParser
         /// <param name="f">font name</param>
         public RTFFont Add(string f , Encoding encoding )
         {
-            return Add(this.Count, f, encoding);
+            return Add(Count, f, encoding);
         }
 
 		/// <summary>
@@ -115,12 +115,12 @@ namespace RtfDomParser
         {
             if (this[f] == null)
             {
-                RTFFont font = new RTFFont(index, f);
+                var font = new RTFFont(index, f);
                 if (encoding != null)
                 {
                     font.Charset = RTFFont.GetCharset(encoding);
                 }
-                this.List.Add(font);
+                List.Add(font);
                 return font ;
             }
             return this[f];
@@ -128,7 +128,7 @@ namespace RtfDomParser
 
         public void Add(RTFFont f)
         {
-            this.List.Add(f);
+            List.Add(f);
         }
 
 		/// <summary>
@@ -137,9 +137,9 @@ namespace RtfDomParser
 		/// <param name="f">font name</param>
 		public void Remove( string f )
 		{
-            RTFFont item = this[f];
+            var item = this[f];
             if (item != null)
-                this.List.Remove( item );
+                List.Remove( item );
 		}
 
 		/// <summary>
@@ -183,10 +183,10 @@ namespace RtfDomParser
 
 		public override string ToString()
 		{
-			System.Text.StringBuilder str = new System.Text.StringBuilder();
+			var str = new StringBuilder();
 			foreach( RTFFont item in this )
 			{
-				str.Append( System.Environment.NewLine );
+				str.Append( Environment.NewLine );
 				str.Append( "Index " + item.Index + "   Name:" + item.Name );
 			}
 			return str.ToString();
@@ -198,10 +198,10 @@ namespace RtfDomParser
         /// <returns>new object</returns>
         public RTFFontTable Clone()
         {
-            RTFFontTable table = new RTFFontTable();
+            var table = new RTFFontTable();
             foreach (RTFFont item in this )
             {
-                RTFFont newItem = item.Clone();
+                var newItem = item.Clone();
                 table.List.Add(newItem);
             }
             return table;
@@ -289,7 +289,7 @@ namespace RtfDomParser
                 _EncodingCharsets = new Dictionary<int, Encoding>();
                 //_EncodingCharsets[0] = ANSIEncoding.Instance;
                 //_EncodingCharsets[1] = Encoding.Default;
-                _EncodingCharsets[77] = Encoding.GetEncoding(10000);//Mac ,macintosh Î÷Å·×Ö·û(Mac)
+                _EncodingCharsets[77] = Encoding.GetEncoding(10000);//Mac ,macintosh ï¿½ï¿½Å·ï¿½Ö·ï¿½(Mac)
                 _EncodingCharsets[128] = Encoding.GetEncoding(932);//Shift Jis ;ANSI/OEM - Japanese, Shift-JIS 
                 _EncodingCharsets[130] = Encoding.GetEncoding(1361);//Johab;Korean (Johab) 
                 _EncodingCharsets[134] = Encoding.GetEncoding(936);//GB2312
@@ -315,7 +315,7 @@ namespace RtfDomParser
         internal static int GetCharset(Encoding encoding)
         {
             CheckEncodingCharsets();
-            foreach (int key in _EncodingCharsets.Keys)
+            foreach (var key in _EncodingCharsets.Keys)
             {
                 if (_EncodingCharsets[key] == encoding)
                 {
@@ -325,7 +325,7 @@ namespace RtfDomParser
             return 1;
         }
 
-        internal static System.Text.Encoding GetRTFEncoding(int fchartset)
+        internal static Encoding GetRTFEncoding(int fchartset)
         {
             if (fchartset == 0)
             {
@@ -358,7 +358,7 @@ namespace RtfDomParser
             //    //case 2:	// Symbol
             //    //case 3:	// Invalid
             //    case 77:   // Mac
-            //        return System.Text.Encoding.GetEncoding(10000); //macintosh Î÷Å·×Ö·û(Mac)
+            //        return System.Text.Encoding.GetEncoding(10000); //macintosh ï¿½ï¿½Å·ï¿½Ö·ï¿½(Mac)
                     
             //    case 128:	// Shift Jis
             //        return System.Text.Encoding.GetEncoding(932);// ANSI/OEM - Japanese, Shift-JIS 
@@ -416,11 +416,11 @@ namespace RtfDomParser
             //}
         }
 
-        private System.Text.Encoding myEncoding = null ;
+        private Encoding myEncoding = null ;
         /// <summary>
         /// encoding
         /// </summary>
-        public System.Text.Encoding Encoding
+        public Encoding Encoding
         {
             get 
             {
@@ -430,11 +430,11 @@ namespace RtfDomParser
 
         public RTFFont Clone()
         {
-            RTFFont f = new RTFFont( this.intIndex , this.strName );
-            f.intCharset = this.intCharset;
-            f.intIndex = this.intIndex;
-            f.myEncoding = this.myEncoding;
-            f.strName = this.strName;
+            var f = new RTFFont( intIndex , strName );
+            f.intCharset = intCharset;
+            f.intIndex = intIndex;
+            f.myEncoding = myEncoding;
+            f.strName = strName;
             return f;
         }
 
@@ -448,14 +448,14 @@ namespace RtfDomParser
     /// <summary>
     /// internal encoding for ansi
     /// </summary>
-    internal class ANSIEncoding : System.Text.Encoding
+    internal class ANSIEncoding : Encoding
     {
         public static ANSIEncoding Instance = new ANSIEncoding();
         public override string GetString(byte[] bytes, int index, int count)
         {
-            System.Text.StringBuilder str = new System.Text.StringBuilder();
-            int endIndex = Math.Min(bytes.Length-1, index + count -1);
-            for (int iCount = index ; iCount <= endIndex ; iCount++)
+            var str = new StringBuilder();
+            var endIndex = Math.Min(bytes.Length-1, index + count -1);
+            for (var iCount = index ; iCount <= endIndex ; iCount++)
             {
                 str.Append(System.Convert.ToChar(bytes[iCount]));
             }

@@ -26,7 +26,7 @@ namespace RtfDomParser
         public RTFDomText()
         {
             // text element can not contains any child element
-            this.Locked = true;
+            Locked = true;
         }
 
         private DocumentFormatInfo myFormat = new DocumentFormatInfo();
@@ -70,11 +70,11 @@ namespace RtfDomParser
         }
         public override string ToString()
         {
-            StringBuilder str = new StringBuilder();
+            var str = new StringBuilder();
             str.Append("Text");
-            if (this.Format != null)
+            if (Format != null)
             {
-                if (this.Format.Hidden)
+                if (Format.Hidden)
                 {
                     str.Append("(Hidden)");
                 }

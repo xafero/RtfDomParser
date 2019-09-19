@@ -9,7 +9,6 @@
 
 
 using System;
-using System.Text;
 
 namespace RtfDomParser
 {
@@ -41,10 +40,10 @@ namespace RtfDomParser
             {
                 if (myInstance is System.Collections.IEnumerable)
                 {
-                    System.Collections.CollectionBase list = (System.Collections.CollectionBase)myInstance;
-                    object[] items = new object[list.Count];
-                    int iCount = 0;
-                    foreach (object obj in list)
+                    var list = (System.Collections.CollectionBase)myInstance;
+                    var items = new object[list.Count];
+                    var iCount = 0;
+                    foreach (var obj in list)
                     {
                         items[iCount] = obj;
                         iCount++;
@@ -53,9 +52,9 @@ namespace RtfDomParser
                 }
                 else if (myInstance is RTFColorTable)
                 {
-                    RTFColorTable table = (RTFColorTable)myInstance;
-                    object[] items = new object[table.Count];
-                    for (int iCount = 0; iCount < table.Count; iCount++)
+                    var table = (RTFColorTable)myInstance;
+                    var items = new object[table.Count];
+                    for (var iCount = 0; iCount < table.Count; iCount++)
                     {
                         items[iCount] = table[iCount];
                     }
@@ -63,7 +62,7 @@ namespace RtfDomParser
                 }
                 else if (myInstance is RTFDocumentInfo)
                 {
-                    RTFDocumentInfo info = (RTFDocumentInfo)myInstance;
+                    var info = (RTFDocumentInfo)myInstance;
                     return info.StringItems;
                 }
                 else

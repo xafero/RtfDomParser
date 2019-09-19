@@ -8,10 +8,6 @@
  */
 
 
-
-using System;
-using System.Text;
-
 namespace RtfDomParser
 {
     /// <summary>

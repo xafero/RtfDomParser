@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace RtfDomParser
 {
@@ -12,7 +10,7 @@ namespace RtfDomParser
 
         public RTFListOverride GetByID(int id)
         {
-            foreach (RTFListOverride item in this)
+            foreach (var item in this)
             {
                 if (item.ID == id)
                 {
@@ -51,7 +49,7 @@ namespace RtfDomParser
 
         public override string ToString()
         {
-            return "ID:" + this.ID + " ListID:" + this.ListID + " Count:" + this.ListOverriedCount;
+            return "ID:" + ID + " ListID:" + ListID + " Count:" + ListOverriedCount;
         }
     }
 }

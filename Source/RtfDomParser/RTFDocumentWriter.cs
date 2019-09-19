@@ -45,7 +45,7 @@ namespace RtfDomParser
 		public RTFDocumentWriter( System.IO.Stream stream )
 		{
             myColorTable.CheckValueExistWhenAdd = true;
-			System.IO.StreamWriter writer = new System.IO.StreamWriter( 
+			var writer = new System.IO.StreamWriter( 
                 stream ,
                 System.Text.Encoding.ASCII );
 			Open( writer );
@@ -212,30 +212,30 @@ namespace RtfDomParser
 			{
 				if( style == System.Drawing.Drawing2D.DashStyle.Dot )
 				{
-					this.WriteKeyword("brdrdot");
+					WriteKeyword("brdrdot");
 				}
 				else if( style == System.Drawing.Drawing2D.DashStyle.DashDot )
 				{
-					this.WriteKeyword("brdrdashd");
+					WriteKeyword("brdrdashd");
 				}
 				else if( style == System.Drawing.Drawing2D.DashStyle.DashDotDot )
 				{
-					this.WriteKeyword("brdrdashdd");
+					WriteKeyword("brdrdashdd");
 				}
 				else if( style == System.Drawing.Drawing2D.DashStyle.Dash )
 				{
-					this.WriteKeyword("brdrdash");
+					WriteKeyword("brdrdash");
 				}
 				else
 				{
-					this.WriteKeyword("brdrs");
+					WriteKeyword("brdrs");
 				}
 			}
 		}
 
         private bool _DebugMode = true;
         /// <summary>
-        /// 处于调试模式
+        /// 锟斤拷锟节碉拷锟斤拷模式
         /// </summary>
         public bool DebugMode
         {
@@ -248,14 +248,14 @@ namespace RtfDomParser
 		/// </summary>
 		public void WriteStartDocument()
 		{
-			this.myLastParagraphInfo = null ;
-			this.bolFirstParagraph = true ;
+			myLastParagraphInfo = null ;
+			bolFirstParagraph = true ;
 			if( bolCollectionInfo )
 			{
 				myInfo.Clear();
 				myFontTable.Clear();
 				myColorTable.Clear();
-				myFontTable.Add( System.Windows.Forms.Control.DefaultFont.Name );
+				myFontTable.Add( Constants.DefaultFontName );
 			}
 			else
 			{
@@ -272,7 +272,7 @@ namespace RtfDomParser
 					{
 						myWriter.WriteStartGroup();
 
-						object v = myInfo[ strKey ] ;
+						var v = myInfo[ strKey ] ;
 						if( v is string )
 						{
 							myWriter.WriteKeyword( strKey );
@@ -284,7 +284,7 @@ namespace RtfDomParser
 						}
 						else if( v is DateTime )
 						{
-							DateTime dtm = ( DateTime ) v ;
+							var dtm = ( DateTime ) v ;
 							myWriter.WriteKeyword( strKey );
 							myWriter.WriteKeyword( "yr" + dtm.Year );
 							myWriter.WriteKeyword( "mo" + dtm.Month );
@@ -305,12 +305,12 @@ namespace RtfDomParser
 				// writing font table
 				myWriter.WriteStartGroup();
 				myWriter.WriteKeyword( RTFConsts._fonttbl );
-				for( int iCount = 0 ; iCount < myFontTable.Count ; iCount ++ )
+				for( var iCount = 0 ; iCount < myFontTable.Count ; iCount ++ )
 				{
 					//string f = myFontTable[ iCount ] ;
 					myWriter.WriteStartGroup();
 					myWriter.WriteKeyword( "f" + iCount );
-                    RTFFont f = myFontTable[iCount];
+                    var f = myFontTable[iCount];
                     myWriter.WriteText( f.Name );
                     if (f.Charset != 1)
                     {
@@ -324,9 +324,9 @@ namespace RtfDomParser
 				myWriter.WriteStartGroup();
 				myWriter.WriteKeyword( RTFConsts._colortbl );
 				myWriter.WriteRaw(";");
-				for( int iCount = 0 ; iCount < myColorTable.Count ; iCount ++ )
+				for( var iCount = 0 ; iCount < myColorTable.Count ; iCount ++ )
 				{
-					System.Drawing.Color c = myColorTable[ iCount ] ;
+					var c = myColorTable[ iCount ] ;
 					myWriter.WriteKeyword( "red" + c.R );
 					myWriter.WriteKeyword( "green" + c.G );
 					myWriter.WriteKeyword( "blue" + c.B );
@@ -335,17 +335,17 @@ namespace RtfDomParser
 				myWriter.WriteEndGroup();
 
                 // write list table
-                if (this.ListTable != null && this.ListTable.Count > 0)
+                if (ListTable != null && ListTable.Count > 0)
                 {
-                    if (this.DebugMode)
+                    if (DebugMode)
                     {
                         myWriter.WriteRaw(Environment.NewLine);
                     }
                     myWriter.WriteStartGroup();
                     myWriter.WriteKeyword("listtable", true );
-                    foreach (RTFList list in this.ListTable)
+                    foreach (var list in ListTable)
                     {
-                        if (this.DebugMode)
+                        if (DebugMode)
                         {
                             myWriter.WriteRaw(Environment.NewLine);
                         }
@@ -356,7 +356,7 @@ namespace RtfDomParser
                         {
                             myWriter.WriteKeyword("listhybrid");
                         }
-                        if (this.DebugMode)
+                        if (DebugMode)
                         {
                             myWriter.WriteRaw(Environment.NewLine);
                         }
@@ -397,7 +397,7 @@ namespace RtfDomParser
                                 myWriter.WriteEndGroup();
                                 if (list.LevelNfc == LevelNumberType.Bullet)
                                 {
-                                    RTFFont f = this.FontTable["Wingdings"];
+                                    var f = FontTable["Wingdings"];
                                     if (f != null)
                                     {
                                         myWriter.WriteKeyword("f" + f.Index);
@@ -421,17 +421,17 @@ namespace RtfDomParser
                 }
 
                 // write list overried table
-                if (this.ListOverrideTable != null && this.ListOverrideTable.Count > 0)
+                if (ListOverrideTable != null && ListOverrideTable.Count > 0)
                 {
-                    if (this.DebugMode)
+                    if (DebugMode)
                     {
                         myWriter.WriteRaw(Environment.NewLine);
                     }
                     myWriter.WriteStartGroup();
                     myWriter.WriteKeyword("listoverridetable");
-                    foreach (RTFListOverride lo in this.ListOverrideTable)
+                    foreach (var lo in ListOverrideTable)
                     {
-                        if (this.DebugMode)
+                        if (DebugMode)
                         {
                             myWriter.WriteRaw(Environment.NewLine);
                         }
@@ -445,7 +445,7 @@ namespace RtfDomParser
                     myWriter.WriteEndGroup();
                 }
 
-                if (this.DebugMode)
+                if (DebugMode)
                 {
                     myWriter.WriteRaw(Environment.NewLine);
                 }
@@ -458,7 +458,7 @@ namespace RtfDomParser
 		/// </summary>
 		public void WriteEndDocument()
 		{
-			if( this.bolCollectionInfo == false )
+			if( bolCollectionInfo == false )
 			{
 				myWriter.WriteEndGroup();
 			}
@@ -470,7 +470,7 @@ namespace RtfDomParser
 		/// </summary>
 		public void WriteStartHeader()
 		{
-			if( this.bolCollectionInfo == false )
+			if( bolCollectionInfo == false )
 			{
 				myWriter.WriteStartGroup();
 				myWriter.WriteKeyword("header");
@@ -482,7 +482,7 @@ namespace RtfDomParser
 		/// </summary>
 		public void WriteEndHeader()
 		{
-			if( this.bolCollectionInfo == false )
+			if( bolCollectionInfo == false )
 			{
 				myWriter.WriteEndGroup();
 			}
@@ -493,7 +493,7 @@ namespace RtfDomParser
 		/// </summary>
 		public void WriteStartFooter()
 		{
-			if( this.bolCollectionInfo == false )
+			if( bolCollectionInfo == false )
 			{
 				myWriter.WriteStartGroup();
 				myWriter.WriteKeyword("footer");
@@ -505,7 +505,7 @@ namespace RtfDomParser
 		/// </summary>
 		public void WriteEndFooter()
 		{
-			if( this.bolCollectionInfo == false )
+			if( bolCollectionInfo == false )
 			{
 				myWriter.WriteEndGroup();
 			}
@@ -526,7 +526,7 @@ namespace RtfDomParser
 		/// <param name="info">format</param>
 		public void WriteStartParagraph( DocumentFormatInfo info )
 		{
-			if( this.bolCollectionInfo )
+			if( bolCollectionInfo )
 			{
 				//myFontTable.Add("Wingdings");
 			}
@@ -535,7 +535,7 @@ namespace RtfDomParser
                 if (bolFirstParagraph)
                 {
                     bolFirstParagraph = false;
-                    myWriter.WriteRaw(System.Environment.NewLine);
+                    myWriter.WriteRaw(Environment.NewLine);
                     //myWriter.WriteKeyword("par");
                 }
                 else
@@ -663,7 +663,7 @@ namespace RtfDomParser
 		/// <param name="strText">text</param>
 		public void WriteText( string strText )
 		{
-			if( strText != null && this.bolCollectionInfo == false )
+			if( strText != null && bolCollectionInfo == false )
 			{
 				myWriter.WriteText( strText );
 			}
@@ -679,13 +679,13 @@ namespace RtfDomParser
 			{
 				throw new ArgumentNullException("font");
 			}
-			if( this.bolCollectionInfo )
+			if( bolCollectionInfo )
 			{
 				myFontTable.Add( font.Name );
 			}
 			else
 			{
-				int index = myFontTable.IndexOf( font.Name );
+				var index = myFontTable.IndexOf( font.Name );
 				if( index >= 0 )
 				{
 					myWriter.WriteKeyword( "f" + index );
@@ -719,7 +719,7 @@ namespace RtfDomParser
 		/// </remarks>
         public void WriteStartString(DocumentFormatInfo info)
         {
-            if (this.bolCollectionInfo)
+            if (bolCollectionInfo)
             {
                 myFontTable.Add(info.FontName);
                 myColorTable.Add(info.TextColor);
@@ -763,7 +763,7 @@ namespace RtfDomParser
             }
 
             myWriter.WriteKeyword("plain");
-            int index = 0;
+            var index = 0;
             index = myFontTable.IndexOf(info.FontName);
             if (index >= 0)
                 myWriter.WriteKeyword("f" + index);
@@ -819,7 +819,7 @@ namespace RtfDomParser
 
 		public void WriteEndString( DocumentFormatInfo info )
 		{
-			if( this.bolCollectionInfo )
+			if( bolCollectionInfo )
 			{
 				return ;
 			}
@@ -852,7 +852,7 @@ namespace RtfDomParser
 		/// <param name="info">format</param>
 		public void WriteString( string strText , DocumentFormatInfo info )
 		{
-			if( this.bolCollectionInfo )
+			if( bolCollectionInfo )
 			{
 				myFontTable.Add( info.FontName );
 				myColorTable.Add( info.TextColor );
@@ -860,16 +860,16 @@ namespace RtfDomParser
 			}
 			else
 			{
-				this.WriteStartString( info );
+				WriteStartString( info );
 
 				if( info.Multiline )
 				{
 					if( strText != null )
 					{
 						strText = strText.Replace( "\n" , "");
-						System.IO.StringReader reader = new System.IO.StringReader( strText );
-						string strLine = reader.ReadLine();
-						int iCount = 0 ;
+						var reader = new System.IO.StringReader( strText );
+						var strLine = reader.ReadLine();
+						var iCount = 0 ;
 						while( strLine != null )
 						{
 							if( iCount > 0 )
@@ -889,7 +889,7 @@ namespace RtfDomParser
 					myWriter.WriteText( strText );
 				}
 
-				this.WriteEndString( info );
+				WriteEndString( info );
 			}
 		}
 
@@ -906,7 +906,7 @@ namespace RtfDomParser
 		/// <param name="strName">bookmark name</param>
 		public void WriteStartBookmark( string strName )
 		{
-			if( this.bolCollectionInfo == false )
+			if( bolCollectionInfo == false )
 			{
 				myWriter.WriteStartGroup();
 				myWriter.WriteKeyword("bkmkstart" , true );
@@ -935,7 +935,7 @@ namespace RtfDomParser
 		/// </summary>
 		public void WriteLineBreak( )
 		{
-			if( this.bolCollectionInfo == false )
+			if( bolCollectionInfo == false )
 			{
 				myWriter.WriteKeyword("line");
 			}
@@ -949,7 +949,7 @@ namespace RtfDomParser
 		/// <param name="ImageData">image binary data</param>
 		public void WriteImage( System.Drawing.Image img , int width , int height , byte[] ImageData )
 		{
-			if( this.bolCollectionInfo )
+			if( bolCollectionInfo )
 			{
 				return ;
 			}
@@ -958,10 +958,10 @@ namespace RtfDomParser
 				if( ImageData == null )
 					return ;
 
-				System.IO.MemoryStream ms = new System.IO.MemoryStream();
+				var ms = new System.IO.MemoryStream();
 				img.Save( ms , System.Drawing.Imaging.ImageFormat.Jpeg );
 				ms.Close();
-				byte[] bs = ms.ToArray();
+				var bs = ms.ToArray();
 				myWriter.WriteStartGroup();
 				
 				myWriter.WriteKeyword("pict");

@@ -8,7 +8,6 @@
  */
 
 using System;
-using System.Windows.Forms;
 
 namespace RtfDomParser
 {
@@ -125,7 +124,7 @@ namespace RtfDomParser
 		{
 			if( intCount > 0 )
 			{
-				byte[] bs = new byte[ intCount ];
+				var bs = new byte[ intCount ];
 				Array.Copy( bsBuffer , 0 , bs , 0 , intCount );
 				return bs ;
 			}
@@ -141,7 +140,7 @@ namespace RtfDomParser
 		public string GetString( System.Text.Encoding encoding )
 		{
 			if( encoding == null )
-				throw new System.ArgumentNullException("encoding");
+				throw new ArgumentNullException("encoding");
 			if( intCount > 0 )
 				return encoding.GetString( bsBuffer , 0 , intCount );
 			else
@@ -158,7 +157,7 @@ namespace RtfDomParser
 			if( NewSize < (int)( bsBuffer.Length * 1.5 ))
 				NewSize = (int)( bsBuffer.Length * 1.5 );
 			
-			byte[] bs = new byte[ NewSize ];
+			var bs = new byte[ NewSize ];
 			Buffer.BlockCopy( bsBuffer , 0 , bs , 0 , bsBuffer.Length );
 			//Array.Copy( bsBuffer , 0 , bs , 0 , bsBuffer.Length );
 			bsBuffer = bs ;

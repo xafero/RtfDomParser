@@ -21,7 +21,7 @@ namespace RtfDomParser
 		/// </summary>
 		public RTFNodeGroup()
 		{
-			this.intType = RTFNodeType.Group ;
+			intType = RTFNodeType.Group ;
 		}
 		/// <summary>
 		/// child node list
@@ -45,8 +45,8 @@ namespace RtfDomParser
 		/// <returns>child nodes list</returns>
 		public RTFNodeList GetAllNodes( bool IncludeGroupNode )
 		{
-				RTFNodeList list = new RTFNodeList();
-				this.AddAllNodes( list , IncludeGroupNode );
+				var list = new RTFNodeList();
+				AddAllNodes( list , IncludeGroupNode );
 				return list ;
 		}
 
@@ -124,7 +124,7 @@ namespace RtfDomParser
 		{
 			get
 			{
-				System.Text.StringBuilder myStr = new System.Text.StringBuilder();
+				var myStr = new System.Text.StringBuilder();
 				foreach( RTFNode node in myNodes )
 				{
 					if( node is RTFNodeGroup )
@@ -140,9 +140,9 @@ namespace RtfDomParser
 
 		internal void MergeText()
 		{
-			RTFNodeList list = new RTFNodeList();
-			System.Text.StringBuilder myStr = new System.Text.StringBuilder();
-			ByteBuffer buffer = new ByteBuffer();
+			var list = new RTFNodeList();
+			var myStr = new System.Text.StringBuilder();
+			var buffer = new ByteBuffer();
 			//System.IO.MemoryStream ms = new System.IO.MemoryStream();
 			//System.Text.Encoding encode = myOwnerDocument.Encoding ;
 			foreach( RTFNode node in myNodes )
@@ -218,7 +218,7 @@ namespace RtfDomParser
                 //}
                 //else
 				{
-                    string txt = buffer.GetString(myOwnerDocument.RuntimeEncoding);
+                    var txt = buffer.GetString(myOwnerDocument.RuntimeEncoding);
 					myStr.Append( txt );
 				}
 				buffer.Reset();
@@ -259,8 +259,8 @@ namespace RtfDomParser
 				{
 					if( node is RTFNodeGroup )
 					{
-						RTFNodeGroup g = ( RTFNodeGroup ) node ;
-						RTFNode n = g.SearchKey( Key , true );
+						var g = ( RTFNodeGroup ) node ;
+						var n = g.SearchKey( Key , true );
 						if( n != null )
 							return n ;
 					}
@@ -277,12 +277,12 @@ namespace RtfDomParser
 		{
 			CheckNodes();
 			if( node == null )
-				throw new System.ArgumentNullException("node");
+				throw new ArgumentNullException("node");
 			if( node == this )
-				throw new System.ArgumentException("node != this");
+				throw new ArgumentException("node != this");
 			node.Parent = this ;
 			node.OwnerDocument = myOwnerDocument ;
-			this.Nodes.Add( node );
+			Nodes.Add( node );
 		}
 		/// <summary>
 		/// delete node
@@ -292,10 +292,10 @@ namespace RtfDomParser
 		{
 			CheckNodes();
 			if( node == null )
-				throw new System.ArgumentNullException("node");
+				throw new ArgumentNullException("node");
 			if( node == this )
-				throw new System.ArgumentException("node != this");
-			this.Nodes.Remove( node );
+				throw new ArgumentException("node != this");
+			Nodes.Remove( node );
 		}
 		/// <summary>
 		/// insert node
@@ -306,18 +306,18 @@ namespace RtfDomParser
 		{
 			CheckNodes();
 			if( node == null )
-				throw new System.ArgumentNullException("node");
+				throw new ArgumentNullException("node");
 			if( node == this )
-				throw new System.ArgumentException("node != this");
+				throw new ArgumentException("node != this");
 			node.Parent = this ;
 			node.OwnerDocument = myOwnerDocument ;
-			this.Nodes.Insert( index , node );
+			Nodes.Insert( index , node );
 		}
 
 		private void CheckNodes()
 		{
-			if( this.Nodes == null )
-				throw new System.Exception("child node is invalidate");
+			if( Nodes == null )
+				throw new Exception("child node is invalidate");
 		}
 	}
 }

@@ -120,7 +120,7 @@ namespace RtfDomParser
                 }
                 else
                 {
-                    return System.Text.Encoding.Default.GetString(_Content);
+                    return Encoding.Default.GetString(_Content);
                 }
             }
         }
@@ -163,7 +163,7 @@ namespace RtfDomParser
 
         public override string ToString()
         {
-            string txt = "Object:" + this.Width + "*" + this.Height;
+            var txt = "Object:" + Width + "*" + Height;
             if (_Content != null && _Content.Length > 0)
             {
                 txt = txt + " " + Convert.ToDouble(_Content.Length / 1024.0).ToString("0.00") + "KB";
@@ -179,11 +179,11 @@ namespace RtfDomParser
         {
             get
             {
-                foreach (RTFDomElement element in this.Elements)
+                foreach (RTFDomElement element in Elements)
                 {
                     if (element is RTFDomElementContainer)
                     {
-                        RTFDomElementContainer c = (RTFDomElementContainer)element;
+                        var c = (RTFDomElementContainer)element;
                         if (c.Name == RTFConsts._result)
                         {
                             return c;

@@ -22,10 +22,10 @@ namespace RtfDomParser
 		/// </summary>
 		internal static void Test()
 		{
-			RTFRawDocument doc = new RTFRawDocument();
+			var doc = new RTFRawDocument();
 			doc.Load(@"d:\abc.rtf");
 			//System.Console.WriteLine( doc.Text );
-			RTFWriter writer = new RTFWriter(@"d:\a.rtf");
+			var writer = new RTFWriter(@"d:\a.rtf");
 			writer.Indent = true ;
 			doc.Write( writer );
 			writer.Close();
@@ -118,9 +118,9 @@ namespace RtfDomParser
             {
                 if (node is RTFNodeGroup)
                 {
-                    int index = -1;
+                    var index = -1;
                     string name = null;
-                    int charset = 0;
+                    var charset = 0;
                     foreach (RTFNode item in node.Nodes)
                     {
                         if (item.Keyword == "f" && item.HasParameter)
@@ -146,7 +146,7 @@ namespace RtfDomParser
                             name = name.Substring(0, name.Length - 1);
                         name = name.Trim();
                         //System.Console.WriteLine( "Index:" + index + "  Name:" + name );
-                        RTFFont font = new RTFFont(index, name);
+                        var font = new RTFFont(index, name);
                         font.Charset = charset;
                         myFontTable.Add(font);
                     }
@@ -161,9 +161,9 @@ namespace RtfDomParser
         private void ReadColorTable( RTFNodeGroup group )
         {
             myColorTable.Clear();
-            int r = -1;
-            int g = -1;
-            int b = -1;
+            var r = -1;
+            var g = -1;
+            var b = -1;
             foreach (RTFNode node in group.Nodes)
             {
                 if (node.Keyword == "red")
@@ -182,7 +182,7 @@ namespace RtfDomParser
                 {
                     if (r >= 0 && g >= 0 && b >= 0)
                     {
-                        System.Drawing.Color c = System.Drawing.Color.FromArgb(255, r, g, b);
+                        var c = System.Drawing.Color.FromArgb(255, r, g, b);
                         myColorTable.Add(c);
                         r = -1;
                         g = -1;
@@ -193,7 +193,7 @@ namespace RtfDomParser
             if (r >= 0 && g >= 0 && b >= 0)
             {
                 // read the last color
-                System.Drawing.Color c = System.Drawing.Color.FromArgb(255, r, g, b);
+                var c = System.Drawing.Color.FromArgb(255, r, g, b);
                 myColorTable.Add(c);
             }
         }
@@ -205,7 +205,7 @@ namespace RtfDomParser
         private void ReadDocumentInfo(RTFNodeGroup group)
         {
             myInfo.Clear();
-            RTFNodeList list = group.GetAllNodes(false);
+            var list = group.GetAllNodes(false);
             foreach (RTFNode node in group.Nodes)
             {
                 if ((node is RTFNodeGroup) == false)
@@ -242,12 +242,12 @@ namespace RtfDomParser
          
 		private DateTime ReadDateTime( RTFNode g )
 		{
-			int yr = g.Nodes.GetParameter( "yr" , 1900 );
-			int mo = g.Nodes.GetParameter( "mo" , 1 );
-			int dy = g.Nodes.GetParameter( "dy" , 1 );
-			int hr = g.Nodes.GetParameter( "hr" , 0 );
-			int min = g.Nodes.GetParameter( "min" , 0 );
-			int sec = g.Nodes.GetParameter( "sec" , 0 );
+			var yr = g.Nodes.GetParameter( "yr" , 1900 );
+			var mo = g.Nodes.GetParameter( "mo" , 1 );
+			var dy = g.Nodes.GetParameter( "dy" , 1 );
+			var hr = g.Nodes.GetParameter( "hr" , 0 );
+			var min = g.Nodes.GetParameter( "min" , 0 );
+			var sec = g.Nodes.GetParameter( "sec" , 0 );
 			return new DateTime( yr , mo , dy , hr , min ,sec );
 		}
  
@@ -258,7 +258,7 @@ namespace RtfDomParser
 		public void LoadRTFText( string strText )
 		{
 			myEncoding = null ;
-			using( RTFReader reader = new RTFReader())
+			using( var reader = new RTFReader())
 			{
 				if( reader.LoadRTFText( strText ))
 				{
@@ -276,7 +276,7 @@ namespace RtfDomParser
 		public void Load( string strFileName )
 		{
 			myEncoding = null ;
-			using( RTFReader reader = new RTFReader() )
+			using( var reader = new RTFReader() )
 			{
 				if( reader.LoadRTFFile( strFileName ) )
 				{
@@ -297,7 +297,7 @@ namespace RtfDomParser
 			{
 				if( myEncoding == null )
 				{
-					RTFNode node = myNodes[ RTFConsts._ansicpg ];
+					var node = myNodes[ RTFConsts._ansicpg ];
 					if( node != null && node.HasParameter )
 					{
 						myEncoding = System.Text.Encoding.GetEncoding( node.Parameter );
@@ -332,13 +332,13 @@ namespace RtfDomParser
                 {
                     return myAssociateFontChartset;
                 }
-                return this.Encoding;
+                return Encoding;
             }
         }
 
 		public void Load( System.IO.TextReader reader )
 		{
-			RTFReader myReader = new RTFReader();
+			var myReader = new RTFReader();
 			myReader.LoadReader( reader );
 			Load( myReader );
 		}
@@ -349,7 +349,7 @@ namespace RtfDomParser
 		public void Load( RTFReader reader )
 		{
 			myNodes.Clear();
-			System.Collections.Stack groups = new System.Collections.Stack();
+			var groups = new System.Collections.Stack();
 			RTFNodeGroup NewGroup = null ;
 			RTFNode NewNode = null;
 			while( reader.ReadToken() != null )
@@ -368,7 +368,7 @@ namespace RtfDomParser
 					}
 					if( NewGroup != this )
 					{
-						RTFNodeGroup g = ( RTFNodeGroup ) groups.Peek();
+						var g = ( RTFNodeGroup ) groups.Peek();
 						g.AppendChild( NewGroup );
 					}
 					groups.Push( NewGroup );
@@ -415,7 +415,7 @@ namespace RtfDomParser
 					NewGroup.AppendChild( NewNode );
                     if (NewNode.Keyword == RTFConsts._f )
                     {
-                        RTFFont font = this.FontTable[NewNode.Parameter];
+                        var font = FontTable[NewNode.Parameter];
                         if (font != null)
                         {
                             myFontChartset = font.Encoding;
@@ -428,7 +428,7 @@ namespace RtfDomParser
                     }
                     else if (NewNode.Keyword == RTFConsts._af)
                     {
-                        RTFFont font = this.FontTable[NewNode.Parameter];
+                        var font = FontTable[NewNode.Parameter];
                         if (font != null)
                         {
                             myAssociateFontChartset = font.Encoding;
@@ -454,7 +454,7 @@ namespace RtfDomParser
 		/// <param name="writer">RTF writer</param>
 		public override void Write(RTFWriter writer)
 		{
-			writer.Encoding = this.Encoding ;
+			writer.Encoding = Encoding ;
 			base.Write (writer);
 		}
 
@@ -464,9 +464,9 @@ namespace RtfDomParser
 		/// <param name="strFileName">file name</param>
 		public void Save( string strFileName )
 		{
-			using( RTFWriter writer = new RTFWriter( strFileName ))
+			using( var writer = new RTFWriter( strFileName ))
 			{
-				this.Write( writer );
+				Write( writer );
 				writer.Close();
 			}
 		}
@@ -476,9 +476,9 @@ namespace RtfDomParser
 		/// <param name="stream">stream</param>
 		public void Save( System.IO.Stream stream )
 		{
-			using( RTFWriter writer = new RTFWriter( new System.IO.StreamWriter( stream , this.Encoding )))
+			using( var writer = new RTFWriter( new System.IO.StreamWriter( stream , Encoding )))
 			{
-				this.Write( writer );
+				Write( writer );
 				writer.Close();
 			}
 		}

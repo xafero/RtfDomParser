@@ -9,7 +9,6 @@
 
 
 using System;
-using System.Text;
 
 namespace RtfDomParser
 {
@@ -52,11 +51,11 @@ namespace RtfDomParser
         {
             get
             {
-                foreach (RTFDomElement element in this.Elements)
+                foreach (RTFDomElement element in Elements)
                 {
                     if (element is RTFDomElementContainer)
                     {
-                        RTFDomElementContainer c = (RTFDomElementContainer)element;
+                        var c = (RTFDomElementContainer)element;
                         if (c.Name == RTFConsts._fldinst)
                         {
                             return c.InnerText;
@@ -79,11 +78,11 @@ namespace RtfDomParser
         {
             get
             {
-                foreach (RTFDomElement element in this.Elements)
+                foreach (RTFDomElement element in Elements)
                 {
                     if (element is RTFDomElementContainer)
                     {
-                        RTFDomElementContainer c = (RTFDomElementContainer)element;
+                        var c = (RTFDomElementContainer)element;
                         if (c.Name == RTFConsts._fldrslt)
                         {
                             return c;
@@ -102,7 +101,7 @@ namespace RtfDomParser
         {
             get
             {
-                RTFDomElementContainer c = this.Result;
+                var c = Result;
                 if (c != null)
                 {
                     return c.InnerText;

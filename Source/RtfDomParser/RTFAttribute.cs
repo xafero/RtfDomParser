@@ -10,7 +10,6 @@
 
 
 using System;
-using System.Text;
 
 namespace RtfDomParser
 {
@@ -82,7 +81,7 @@ namespace RtfDomParser
 
         public RTFAttribute GetItem(int index)
         {
-            return (RTFAttribute)this.List[index];
+            return (RTFAttribute)List[index];
         }
 
         public int this[string name]
@@ -106,46 +105,46 @@ namespace RtfDomParser
                         return;
                     }
                 }
-                RTFAttribute item = new RTFAttribute();
+                var item = new RTFAttribute();
                 item.Name = name;
                 item.Value = value;
-                this.List.Add(item);
+                List.Add(item);
             }
         }
 
         public int Add(RTFAttribute item)
         {
-            return this.List.Add(item);
+            return List.Add(item);
         }
 
         public int Add(string name, int v)
         {
-            RTFAttribute item = new RTFAttribute();
+            var item = new RTFAttribute();
             item.Name = name;
             item.Value = v;
-            return this.List.Add(item);
+            return List.Add(item);
         }
 
         public void Remove(RTFAttribute item)
         {
-            this.List.Remove(item);
+            List.Remove(item);
         }
 
         public void Remove(string name)
         {
-            for (int iCount = this.Count - 1; iCount >= 0; iCount--)
+            for (var iCount = Count - 1; iCount >= 0; iCount--)
             {
-                RTFAttribute item = (RTFAttribute)this.List[iCount];
+                var item = (RTFAttribute)List[iCount];
                 if (item.Name == name)
                 {
-                    this.List.RemoveAt(iCount);
+                    List.RemoveAt(iCount);
                 }
             }
         }
 
         public bool Contains(RTFAttribute item)
         {
-            return this.List.Contains(item);
+            return List.Contains(item);
         }
 
         public bool Contains(string name)
@@ -160,10 +159,10 @@ namespace RtfDomParser
 
         public RTFAttributeList Clone()
         {
-            RTFAttributeList list = new RTFAttributeList();
+            var list = new RTFAttributeList();
             foreach (RTFAttribute item in this)
             {
-                RTFAttribute newItem = new RTFAttribute();
+                var newItem = new RTFAttribute();
                 newItem.Name = item.Name;
                 newItem.Value = item.Value;
                 list.List.Add(newItem);

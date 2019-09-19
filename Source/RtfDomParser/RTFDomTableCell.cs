@@ -10,7 +10,6 @@
 
 
 using System;
-using System.Text;
 
 namespace RtfDomParser
 {
@@ -92,9 +91,9 @@ namespace RtfDomParser
                 {
                     return intPaddingLeft;
                 }
-                else if (this.Parent != null)
+                else if (Parent != null)
                 {
-                    int p = ((RTFDomTableRow)this.Parent).PaddingLeft;
+                    var p = ((RTFDomTableRow)Parent).PaddingLeft;
                     if (p != int.MinValue)
                     {
                         return p;
@@ -134,9 +133,9 @@ namespace RtfDomParser
                 {
                     return intPaddingTop;
                 }
-                else if (this.Parent != null)
+                else if (Parent != null)
                 {
-                    int p = ((RTFDomTableRow)this.Parent).PaddingTop;
+                    var p = ((RTFDomTableRow)Parent).PaddingTop;
                     if (p != int.MinValue)
                     {
                         return p;
@@ -176,9 +175,9 @@ namespace RtfDomParser
                 {
                     return intPaddingRight;
                 }
-                else if (this.Parent != null)
+                else if (Parent != null)
                 {
-                    int p = ((RTFDomTableRow)this.Parent).PaddingRight;
+                    var p = ((RTFDomTableRow)Parent).PaddingRight;
                     if (p != int.MinValue)
                     {
                         return p;
@@ -218,9 +217,9 @@ namespace RtfDomParser
                 {
                     return intPaddingBottom;
                 }
-                else if (this.Parent != null)
+                else if (Parent != null)
                 {
-                    int p = ((RTFDomTableRow)this.Parent).PaddingBottom;
+                    var p = ((RTFDomTableRow)Parent).PaddingBottom;
                     if (p != int.MinValue)
                     {
                         return p;
@@ -448,11 +447,11 @@ namespace RtfDomParser
             {
                 if (intRowSpan != 1 || intColSpan != 1)
                 {
-                    return "Cell: RowSpan:" + intRowSpan + " ColSpan:" + intColSpan + " Width:" + this.Width ;
+                    return "Cell: RowSpan:" + intRowSpan + " ColSpan:" + intColSpan + " Width:" + Width ;
                 }
                 else
                 {
-                    return "Cell:Width:" + this.Width ;
+                    return "Cell:Width:" + Width ;
                 }
             }
             else

@@ -7,8 +7,6 @@
  * 
  */
 
-using System;
-
 namespace RtfDomParser
 {
 	/// <summary>

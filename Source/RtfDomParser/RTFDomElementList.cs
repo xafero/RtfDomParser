@@ -10,7 +10,6 @@
 
 
 using System;
-using System.Text;
 
 namespace RtfDomParser
 {
@@ -37,7 +36,7 @@ namespace RtfDomParser
         {
             get
             {
-                return (RTFDomElement)this.List[index];
+                return (RTFDomElement)List[index];
             }
         }
 
@@ -48,8 +47,8 @@ namespace RtfDomParser
         {
             get
             {
-                if (this.Count > 0)
-                    return (RTFDomElement)this.List[this.Count - 1];
+                if (Count > 0)
+                    return (RTFDomElement)List[Count - 1];
                 else
                     return null;
             }
@@ -61,7 +60,7 @@ namespace RtfDomParser
         /// <returns>index</returns>
         public int Add(RTFDomElement element )
         {
-            return this.List.Add( element );
+            return List.Add( element );
         }
         /// <summary>
         /// insert element
@@ -70,7 +69,7 @@ namespace RtfDomParser
         /// <param name="element">element</param>
         public void Insert(int index, RTFDomElement element)
         {
-            this.List.Insert(index, element);
+            List.Insert(index, element);
         }
         /// <summary>
         /// Get the index of special element that starts with 0.
@@ -79,7 +78,7 @@ namespace RtfDomParser
         /// <returns>index , if not find element , then return -1</returns>
         public int IndexOf(RTFDomElement element)
         {
-            return this.List.IndexOf(element);
+            return List.IndexOf(element);
         }
         /// <summary>
         /// delete element
@@ -87,7 +86,7 @@ namespace RtfDomParser
         /// <param name="node">element</param>
         public void Remove(RTFDomElement node)
         {
-            this.List.Remove(node);
+            List.Remove(node);
         }
         /// <summary>
         /// return element array
@@ -95,7 +94,7 @@ namespace RtfDomParser
         /// <returns>array</returns>
         public RTFDomElement[] ToArray()
         {
-            return (RTFDomElement[])this.InnerList.ToArray(typeof(RTFDomElement));
+            return (RTFDomElement[])InnerList.ToArray(typeof(RTFDomElement));
         }
     }
 }

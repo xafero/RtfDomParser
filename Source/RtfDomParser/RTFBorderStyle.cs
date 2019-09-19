@@ -7,9 +7,6 @@
  * 
  */
 
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Drawing ;
 using System.Drawing.Drawing2D;
 using System.ComponentModel;
@@ -82,14 +79,14 @@ namespace RtfDomParser
         /// <returns>复制品</returns>
         public RTFBorderStyle Clone()
         {
-            RTFBorderStyle b = new RTFBorderStyle();
-            b._Bottom = this._Bottom;
-            b._Color = this._Color;
-            b._Left = this._Left;
-            b._Right = this._Right;
-            b._Style = this._Style;
-            b._Top = this._Top;
-            b._Thickness = this._Thickness;
+            var b = new RTFBorderStyle();
+            b._Bottom = _Bottom;
+            b._Color = _Color;
+            b._Left = _Left;
+            b._Right = _Right;
+            b._Style = _Style;
+            b._Top = _Top;
+            b._Thickness = _Thickness;
             return b;
         }
 
@@ -103,13 +100,13 @@ namespace RtfDomParser
             {
                 return false;
             }
-            if (b._Bottom != this._Bottom
-                || b._Color != this._Color
-                || b._Left != this._Left
-                || b._Right != this._Right
-                || b._Style != this._Style
-                || b._Top != this._Top
-                || b._Thickness != this._Thickness )
+            if (b._Bottom != _Bottom
+                || b._Color != _Color
+                || b._Left != _Left
+                || b._Right != _Right
+                || b._Style != _Style
+                || b._Top != _Top
+                || b._Thickness != _Thickness )
             {
                 return false;
             }

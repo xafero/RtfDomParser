@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace RtfDomParser
 {
@@ -12,7 +11,7 @@ namespace RtfDomParser
 
         public RTFList GetByID(int id)
         {
-            foreach (RTFList list in this)
+            foreach (var list in this)
             {
                 if (list.ListID == id)
                 {
@@ -125,18 +124,18 @@ namespace RtfDomParser
 
         public override string ToString()
         {
-            if (this.LevelNfc == LevelNumberType.Bullet)
+            if (LevelNfc == LevelNumberType.Bullet)
             {
-                string text = "ID:" + this.ListID + "   Bullet:";
-                if (string.IsNullOrEmpty(this.LevelText) == false)
+                var text = "ID:" + ListID + "   Bullet:";
+                if (string.IsNullOrEmpty(LevelText) == false)
                 {
-                    text = text + "(" + Convert.ToString((short)this.LevelText[0]) + ")";
+                    text = text + "(" + Convert.ToString((short)LevelText[0]) + ")";
                 }
                 return text;
             }
             else
             {
-                return  "ID:" + this.ListID + " " + this.LevelNfc.ToString() + " Start:" + this.LevelStartAt;
+                return  "ID:" + ListID + " " + LevelNfc.ToString() + " Start:" + LevelStartAt;
             }
         }
     }

@@ -10,7 +10,6 @@
 
 
 using System;
-using System.Text;
 
 namespace RtfDomParser
 {
@@ -25,7 +24,7 @@ namespace RtfDomParser
         /// </summary>
         public RTFDomLineBreak()
         {
-            this.Locked = true;
+            Locked = true;
         }
 
         public override string InnerText

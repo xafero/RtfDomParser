@@ -16,7 +16,7 @@ namespace RtfDomParser
 	/// <summary>
     /// RTF text writer ,  this source code evolution from other software.
 	/// </summary>
-	public class RTFWriter : System.IDisposable
+	public class RTFWriter : IDisposable
 	{
 	
 		#region test ******************************************************
@@ -27,10 +27,10 @@ namespace RtfDomParser
 		/// </summary>
 		internal static void TestWriteFile( )
 		{
-			RTFWriter w = new RTFWriter( "c:\\a.rtf" ) ;
+			var w = new RTFWriter( "c:\\a.rtf" ) ;
 			TestBuildRTF( w );
 			w.Close();
-			System.Windows.Forms.MessageBox.Show("OK , you can open file c:\\a.rtf ÁË.");
+			// System.Windows.Forms.MessageBox.Show("OK , you can open file c:\\a.rtf ï¿½ï¿½.");
 		}
 
 		/// <summary>
@@ -39,14 +39,14 @@ namespace RtfDomParser
 		/// </summary>
 		internal static void TestClipboard()
 		{
-			System.IO.StringWriter myStr = new System.IO.StringWriter();
-			RTFWriter w = new RTFWriter( myStr );
+			var myStr = new System.IO.StringWriter();
+			var w = new RTFWriter( myStr );
 			TestBuildRTF( w );
 			w.Close();
-			System.Windows.Forms.DataObject data = new System.Windows.Forms.DataObject();
+			/*System.Windows.Forms.DataObject data = new System.Windows.Forms.DataObject();
 			data.SetData( System.Windows.Forms.DataFormats.Rtf , myStr.ToString());
 			System.Windows.Forms.Clipboard.SetDataObject( data , true );
-			System.Windows.Forms.MessageBox.Show("OK, you can paste words in MS Word.");
+			System.Windows.Forms.MessageBox.Show("OK, you can paste words in MS Word.");*/
 		}
 
 		/// <summary>
@@ -185,7 +185,7 @@ namespace RtfDomParser
 		/// </summary>
 		private int intGroupLevel = 0 ;
         /// <summary>
-        /// µ±Ç°×éºÏµÈ¼¶
+        /// ï¿½ï¿½Ç°ï¿½ï¿½ÏµÈ¼ï¿½
         /// </summary>
         public int GroupLevel
         {
@@ -200,8 +200,8 @@ namespace RtfDomParser
 		/// </summary>
 		public void Close()
 		{
-			if(this.intGroupLevel > 0 )
-				throw new System.Exception("Some group does not finish");
+			if(intGroupLevel > 0 )
+				throw new Exception("Some group does not finish");
 			if( myWriter != null )
 			{
 				myWriter.Close();
@@ -223,9 +223,9 @@ namespace RtfDomParser
 		/// <param name="KeyWord">keyword</param>
 		public void WriteGroup( string KeyWord )
 		{
-			this.WriteStartGroup();
-			this.WriteKeyword( KeyWord );
-			this.WriteEndGroup();
+			WriteStartGroup();
+			WriteKeyword( KeyWord );
+			WriteEndGroup();
 		}
 
 		/// <summary>
@@ -253,7 +253,7 @@ namespace RtfDomParser
             intGroupLevel--;
             if (intGroupLevel < 0)
             {
-                throw new System.Exception("group level error");
+                throw new Exception("group level error");
             }
             if (bolIndent)
             {
@@ -293,17 +293,17 @@ namespace RtfDomParser
 		public void WriteKeyword( string Keyword , bool Ext)
 		{
 			if( Keyword == null || Keyword.Length == 0)
-				throw new System.ArgumentNullException("Öµ²»µÃÎª¿Õ");
+				throw new ArgumentNullException("Öµï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½");
 			if( bolIndent == false && ( Keyword == "par" || Keyword == "pard" ) )
 			{
                 // at the front of par or pard can write new line , will not effect rtf render.
-				InnerWrite( System.Environment.NewLine );
+				InnerWrite( Environment.NewLine );
 			}
-			if( this.bolIndent )
+			if( bolIndent )
 			{
 				if( Keyword == "par" || Keyword == "pard" )
 				{
-					this.InnerWriteNewLine();
+					InnerWriteNewLine();
 				}
 			}
 			if( Ext )
@@ -325,7 +325,7 @@ namespace RtfDomParser
 		/// <summary>
 		/// write plain text
 		/// </summary>
-		/// <param name="Text">ÎÄ±¾Öµ</param>
+		/// <param name="Text">ï¿½Ä±ï¿½Öµ</param>
 		public void WriteText( string Text )
 		{
 			if( Text == null || Text.Length == 0 )
@@ -339,12 +339,12 @@ namespace RtfDomParser
             if (string.IsNullOrEmpty(text) == false)
             {
                 WriteKeyword("uc1");
-                foreach (char c in text)
+                foreach (var c in text)
                 {
                     if (c > 127)
                     {
-                        int v = (int)c;
-                        short v2 = (short)v;
+                        var v = (int)c;
+                        var v2 = (short)v;
                         WriteKeyword("u" + v2.ToString());
                         WriteRaw(" ?");
                     }
@@ -371,9 +371,9 @@ namespace RtfDomParser
 				InnerWrite( ' ' );
 			}
 
-			for( int iCount = 0 ; iCount < Text.Length ; iCount ++ )
+			for( var iCount = 0 ; iCount < Text.Length ; iCount ++ )
 			{
-				char c = Text[ iCount ] ;
+				var c = Text[ iCount ] ;
                 InnerWriteChar(c);
 
                 //if( c == '\t')
@@ -404,7 +404,7 @@ namespace RtfDomParser
         {
             if (c == '\t')
             {
-                this.WriteKeyword("tab");
+                WriteKeyword("tab");
                 InnerWrite(' ');
             }
             if (c > 32 && c < 127)
@@ -418,8 +418,8 @@ namespace RtfDomParser
             }
             else
             {
-                byte[] bs = myEncoding.GetBytes(c.ToString());
-                for (int iCount2 = 0; iCount2 < bs.Length; iCount2++)
+                var bs = myEncoding.GetBytes(c.ToString());
+                for (var iCount2 = 0; iCount2 < bs.Length; iCount2++)
                 {
                     InnerWrite("\\\'");
                     WriteByte(bs[iCount2]);
@@ -450,20 +450,20 @@ namespace RtfDomParser
 			if( bs == null || bs.Length == 0 )
 				return ;
 			WriteRaw( " " );
-			for( int iCount = 0 ; iCount < bs.Length ; iCount ++ )
+			for( var iCount = 0 ; iCount < bs.Length ; iCount ++ )
 			{
 				if( ( iCount % 32 ) == 0 )
 				{
-					this.WriteRaw( System.Environment.NewLine );
-					this.WriteIndent();
+					WriteRaw( Environment.NewLine );
+					WriteIndent();
 				}
 				else if( ( iCount % 8 ) == 0 )
 				{
-					this.WriteRaw(" ");
+					WriteRaw(" ");
 				}
-				byte b = bs[ iCount ] ;
-				int h = ( b & 0xf0 ) >> 4  ;
-				int l = b & 0xf ;
+				var b = bs[ iCount ] ;
+				var h = ( b & 0xf0 ) >> 4  ;
+				var l = b & 0xf ;
 				myWriter.Write( Hexs[ h ] );
 				myWriter.Write( Hexs[ l ] );
 				intPosition += 2 ;
@@ -476,8 +476,8 @@ namespace RtfDomParser
 		/// <param name="b">byte data</param>
 		public void WriteByte( byte b )
 		{
-			int h = ( b & 0xf0 ) >> 4 ;
-			int l = b & 0xf ;
+			var h = ( b & 0xf0 ) >> 4 ;
+			var l = b & 0xf ;
 			myWriter.Write( Hexs[ h ] );
 			myWriter.Write( Hexs[ l ] );
 			intPosition += 2 ;
@@ -499,7 +499,7 @@ namespace RtfDomParser
 
 		private void FixIndent()
 		{
-			if( this.bolIndent )
+			if( bolIndent )
 			{
 				if( intPosition - intLineHead > 100 )
 					InnerWriteNewLine();
@@ -508,11 +508,11 @@ namespace RtfDomParser
 
 		private void InnerWriteNewLine()
 		{
-			if( this.bolIndent )
+			if( bolIndent )
 			{
 				if( intPosition > 0 )
 				{
-					InnerWrite( System.Environment.NewLine );
+					InnerWrite( Environment.NewLine );
 					intLineHead = intPosition ;
 					WriteIndent();
 				}
@@ -523,9 +523,9 @@ namespace RtfDomParser
 		{
 			if( bolIndent )
 			{
-				for( int iCount = 0 ; iCount < intGroupLevel ; iCount ++ )
+				for( var iCount = 0 ; iCount < intGroupLevel ; iCount ++ )
 				{
-					InnerWrite( this.strIndentString );
+					InnerWrite( strIndentString );
 				}
 			}
 		}
@@ -537,7 +537,7 @@ namespace RtfDomParser
 		/// </summary>
 		public void Dispose()
 		{
-			this.Close();
+			Close();
 		}
 	}
 }

@@ -23,7 +23,7 @@ namespace RtfDomParser
 		/// </summary>
 		public RTFNode this[ int index ]
 		{
-			get{ return ( RTFNode ) this.List[ index ] ;}
+			get{ return ( RTFNode ) List[ index ] ;}
 		}
 		/// <summary>
 		/// get node special keyword
@@ -77,7 +77,7 @@ namespace RtfDomParser
 		{
 			get
 			{
-				System.Text.StringBuilder myStr = new System.Text.StringBuilder();
+				var myStr = new System.Text.StringBuilder();
 				foreach( RTFNode node in this )
 				{
 					if( node.Type == RTFNodeType.Text )
@@ -86,7 +86,7 @@ namespace RtfDomParser
 					}
 					else if( node is RTFNodeGroup )
 					{
-						string txt = node.Nodes.Text ;
+						var txt = node.Nodes.Text ;
 						if( txt != null )
 							myStr.Append( txt );
 					}
@@ -112,12 +112,12 @@ namespace RtfDomParser
 		/// <returns>index , if node does no in this list , return -1</returns>
 		public int IndexOf( RTFNode node )
 		{
-			return this.List.IndexOf( node );
+			return List.IndexOf( node );
 		}
 
 		internal void AddRange( RTFNodeList list )
 		{
-			this.InnerList.AddRange( list );
+			InnerList.AddRange( list );
 		}
 		/// <summary>
 		/// add node
@@ -126,7 +126,7 @@ namespace RtfDomParser
 		internal void Add( RTFNode node )
 		{
 			//node.OwnerList = this ;
-			this.List.Add( node );
+			List.Add( node );
 		}
 		/// <summary>
 		/// remvoe node
@@ -134,7 +134,7 @@ namespace RtfDomParser
 		/// <param name="node">node</param>
 		internal void Remove( RTFNode node )
 		{
-			this.Remove( node );
+			Remove( node );
 		}
 		/// <summary>
 		/// insert node
@@ -143,7 +143,7 @@ namespace RtfDomParser
 		/// <param name="node">node</param>
 		internal void Insert( int index , RTFNode node )
 		{
-			this.List.Insert( index , node );
+			List.Insert( index , node );
 		}
 	}
 }

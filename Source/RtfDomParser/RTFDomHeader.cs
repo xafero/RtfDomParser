@@ -8,8 +8,6 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace RtfDomParser
 {
@@ -37,7 +35,7 @@ namespace RtfDomParser
         }
         public override string ToString()
         {
-            return "Header " + this.Style;
+            return "Header " + Style;
         }
 
         /// <summary>
@@ -89,7 +87,7 @@ namespace RtfDomParser
 
         public override string ToString()
         {
-            return "Footer " + this.Style;
+            return "Footer " + Style;
         }
     }
 

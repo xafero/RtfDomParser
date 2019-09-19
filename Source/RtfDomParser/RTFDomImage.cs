@@ -10,7 +10,6 @@
 
 
 using System;
-using System.Text;
 
 namespace RtfDomParser
 {
@@ -191,7 +190,7 @@ namespace RtfDomParser
 
         private RTFPicType _PicType = RTFPicType.Jpegblip;
         /// <summary>
-        /// ͼƬ��ʽ
+        /// ͼƬ��ʽ
         /// </summary>
         public RTFPicType PicType
         {
@@ -223,7 +222,7 @@ namespace RtfDomParser
 
         public override string ToString()
         {
-            string txt = "Image:" + intWidth + "*" + intHeight;
+            var txt = "Image:" + intWidth + "*" + intHeight;
             if (bsData != null && bsData.Length > 0)
                 txt = txt + " " + Convert.ToDouble( bsData.Length / 1024.0).ToString("0.00") + "KB";
             return txt;

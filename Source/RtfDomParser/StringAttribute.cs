@@ -8,7 +8,6 @@
  */
 
 using System;
-using System.Text;
 
 namespace RtfDomParser
 {
@@ -92,7 +91,7 @@ namespace RtfDomParser
                     if (item.Name == name)
                     {
                         if (value == null)
-                            this.List.Remove(item);
+                            List.Remove(item);
                         else
                             item.Value = value;
                         return;
@@ -100,22 +99,22 @@ namespace RtfDomParser
                 }
                 if (value != null)
                 {
-                    StringAttribute newItem = new StringAttribute();
+                    var newItem = new StringAttribute();
                     newItem.Name = name;
                     newItem.Value = value;
-                    this.List.Add(newItem);
+                    List.Add(newItem);
                 }
             }
         }
 
         public int Add(StringAttribute item)
         {
-            return this.List.Add(item);
+            return List.Add(item);
         }
 
         public void Remove(StringAttribute item)
         {
-            this.List.Remove(item);
+            List.Remove(item);
         }
     }
 }

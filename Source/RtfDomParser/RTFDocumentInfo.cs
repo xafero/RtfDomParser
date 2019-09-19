@@ -108,8 +108,8 @@ namespace RtfDomParser
             {
                 if (myInfo.ContainsKey("edmins"))
                 {
-                    string v = Convert.ToString(myInfo["edmins"]);
-                    int result = 0;
+                    var v = Convert.ToString(myInfo["edmins"]);
+                    var result = 0;
                     if (int.TryParse(v, out result))
                     {
                         return result;
@@ -221,15 +221,15 @@ namespace RtfDomParser
         {
             get
             {
-                System.Collections.ArrayList list = new System.Collections.ArrayList();
+                var list = new System.Collections.ArrayList();
                 foreach (string key in myInfo.Keys)
                 {
                     list.Add(key + "=" + myInfo[key]);
                 }
-                list.Add("Creatim="+this.Creatim.ToString("yyyy-MM-dd HH:mm:ss"));
-                list.Add("Revtim="+ this.Revtim.ToString("yyyy-MM-dd HH:mm:ss"));
-                list.Add("Printim="+ this.Printim.ToString("yyyy-MM-dd HH:mm:ss"));
-                list.Add("Buptim="+ this.Buptim.ToString("yyyy-MM-dd HH:mm:ss"));
+                list.Add("Creatim="+Creatim.ToString("yyyy-MM-dd HH:mm:ss"));
+                list.Add("Revtim="+ Revtim.ToString("yyyy-MM-dd HH:mm:ss"));
+                list.Add("Printim="+ Printim.ToString("yyyy-MM-dd HH:mm:ss"));
+                list.Add("Buptim="+ Buptim.ToString("yyyy-MM-dd HH:mm:ss"));
                 return ( string[]) list.ToArray(typeof(string));
             }
         }
@@ -237,7 +237,7 @@ namespace RtfDomParser
 		public void Clear()
 		{
 			myInfo.Clear();
-			dtmCreatim = System.DateTime.Now ;
+			dtmCreatim = DateTime.Now ;
 			dtmRevtim = DateTime.Now ;
 			dtmPrintim = DateTime.Now ;
 			dtmBuptim = DateTime.Now ;

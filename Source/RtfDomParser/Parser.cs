@@ -199,14 +199,14 @@ namespace RtfDomParser
         {
             if (myBuffer.Count > 0)
             {
-                string txt = myBuffer.GetString(myDocument.RuntimeEncoding);
+                var txt = myBuffer.GetString(myDocument.RuntimeEncoding);
                 myStr.Append(txt);
                 myBuffer.Clear();
             }
         }
     }
 
-	public class RTFReader : System.IDisposable
+	public class RTFReader : IDisposable
 	{
 		/// <summary>
 		/// initialize instance
@@ -222,7 +222,7 @@ namespace RtfDomParser
 
         public RTFReader(System.IO.Stream stream)
         {
-            System.IO.StreamReader reader = new System.IO.StreamReader(stream, System.Text.Encoding.ASCII);
+            var reader = new System.IO.StreamReader(stream, System.Text.Encoding.ASCII);
             LoadReader(reader);
             myBaseStream = stream;
         }
@@ -264,7 +264,7 @@ namespace RtfDomParser
 			myCurrentToken = null ;
 			if( System.IO.File.Exists( strFileName ))
 			{
-				System.IO.FileStream stream = new System.IO.FileStream( strFileName , System.IO.FileMode.Open , System.IO.FileAccess.Read );
+				var stream = new System.IO.FileStream( strFileName , System.IO.FileMode.Open , System.IO.FileAccess.Read );
 				myReader = new System.IO.StreamReader( stream , System.Text.Encoding.ASCII );
                 myBaseStream = stream;
 				myLex = new RTFLex( myReader );
@@ -477,12 +477,12 @@ namespace RtfDomParser
 
         public void DefaultProcess()
         {
-            if (this.CurrentToken != null)
+            if (CurrentToken != null)
             {
-                switch (this.CurrentToken.Key)
+                switch (CurrentToken.Key)
                 {
                     case "uc":
-                        this.CurrentLayerInfo.UCValue = this.Parameter;
+                        CurrentLayerInfo.UCValue = Parameter;
                         break;
                 }
             }
@@ -526,7 +526,7 @@ namespace RtfDomParser
                 }
                 else
                 {
-                    RTFRawLayerInfo info = _LayerStack.Peek();
+                    var info = _LayerStack.Peek();
                     _LayerStack.Push(info.Clone());
                 }
                 intLevel++;
@@ -539,9 +539,9 @@ namespace RtfDomParser
                 }
                 intLevel--;
             }
-            if (this.EnableDefaultProcess)
+            if (EnableDefaultProcess)
             {
-                this.DefaultProcess();
+                DefaultProcess();
             }
             //if (myTokenStack.Count > 0)
             //{
@@ -556,10 +556,10 @@ namespace RtfDomParser
         /// </summary>
         public void ReadToEndGround( )
         {
-            int level = 0;
+            var level = 0;
             while (true)
             {
-                int c = myReader.Peek();
+                var c = myReader.Peek();
                 if (c == -1)
                 {
                     break;
@@ -582,12 +582,12 @@ namespace RtfDomParser
 
 		public void Dispose()
 		{
-			this.Close();
+			Close();
 		}
 
         public override string ToString()
         {
-            return "RTFReader Level:" + intLevel + " " + this.Keyword ;
+            return "RTFReader Level:" + intLevel + " " + Keyword ;
         }
 	}
  
@@ -607,7 +607,7 @@ namespace RtfDomParser
 
         public RTFTokenType PeekTokenType()
         {
-            int c = myReader.Peek();
+            var c = myReader.Peek();
 
             while (c == '\r'
                 || c == '\n'
@@ -644,8 +644,8 @@ namespace RtfDomParser
 		/// <returns>token</returns>
 		public RTFToken NextToken( )
 		{
-			int c = 0 ;
-			RTFToken token = new RTFToken();
+			var c = 0 ;
+			var token = new RTFToken();
 
 			//myReader.Read();
 
@@ -653,7 +653,7 @@ namespace RtfDomParser
             if (c == '\"')
             {
                 // 以双引号开头，读取连续的字符
-                System.Text.StringBuilder str = new System.Text.StringBuilder();
+                var str = new System.Text.StringBuilder();
                 while (true)
                 {
                     c = myReader.Read();
@@ -723,8 +723,8 @@ namespace RtfDomParser
 
 		private void ParseKeyword( RTFToken token )
 		{
-			int c = 0 ;
-			bool ext = false;
+			var c = 0 ;
+			var ext = false;
 			c = myReader.Peek();
 			if( char.IsLetter( ( char ) c ) == false )
 			{
@@ -751,7 +751,7 @@ namespace RtfDomParser
 					if( token.Key == "\'" )
 					{
 						// read 2 hex characters
-						System.Text.StringBuilder text = new System.Text.StringBuilder();
+						var text = new System.Text.StringBuilder();
 						text.Append( ( char ) myReader.Read());
 						text.Append( ( char ) myReader.Read());
 						token.HasParam = true ;
@@ -768,7 +768,7 @@ namespace RtfDomParser
 		ReadKeywrod :
 
 			// read keyword
-			System.Text.StringBuilder Keyword = new System.Text.StringBuilder();
+			var Keyword = new System.Text.StringBuilder();
 			c = myReader.Peek();
 			while( char.IsLetter ( ( char ) c ))
 			{
@@ -787,21 +787,21 @@ namespace RtfDomParser
 			if( char.IsDigit( ( char ) c ) || c == '-' )
 			{
 				token.HasParam = true ;
-				bool Negative = false;
+				var Negative = false;
 				if( c == '-' )
 				{
 					Negative = true ;
 					myReader.Read();
 				}
 				c = myReader.Peek();
-				System.Text.StringBuilder text = new System.Text.StringBuilder();
+				var text = new System.Text.StringBuilder();
 				while( char.IsDigit( ( char ) c ))
 				{
 					myReader.Read();
 					text.Append( ( char ) c );
 					c = myReader.Peek();
 				}
-				int p = Convert.ToInt32( text.ToString());
+				var p = Convert.ToInt32( text.ToString());
 				if( Negative )
 					p = - p ;
 				token.Param = p ;
@@ -815,7 +815,7 @@ namespace RtfDomParser
 
 		private void ParseText( int c , RTFToken token )
 		{
-			System.Text.StringBuilder myStr = new System.Text.StringBuilder( ( ( char ) c ).ToString());
+			var myStr = new System.Text.StringBuilder( ( ( char ) c ).ToString());
 
 			c = ClearWhiteSpace();
 
@@ -831,7 +831,7 @@ namespace RtfDomParser
 		
 		private int ClearWhiteSpace( )
 		{
-			int c = myReader.Peek();
+			var c = myReader.Peek();
 			while( c == '\r'
 				|| c == '\n'
 				|| c == '\t'
@@ -910,7 +910,7 @@ namespace RtfDomParser
         {
             if (intType == RTFTokenType.Keyword)
             {
-                return this.Key + this.Param;
+                return Key + Param;
             }
             else if (intType == RTFTokenType.GroupStart)
             {
@@ -922,9 +922,9 @@ namespace RtfDomParser
             }
             else if (intType == RTFTokenType.Text)
             {
-                return "Text:" + this.Param;
+                return "Text:" + Param;
             }
-            return intType.ToString() + ":" + this.Key + " " + this.Param;
+            return intType.ToString() + ":" + Key + " " + Param;
         }
 	}
 

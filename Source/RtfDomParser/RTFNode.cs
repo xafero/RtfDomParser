@@ -8,9 +8,6 @@
  */
 
 
-
-using System;
-
 namespace RtfDomParser
 {
 	/// <summary>
@@ -28,14 +25,14 @@ namespace RtfDomParser
 		public RTFNode( RTFNodeType type , string Key )
 		{
 			intType = type ;
-			this.strKeyword = Key ;
+			strKeyword = Key ;
 		}
 		
         public RTFNode( RTFToken token )
 		{
-			this.strKeyword = token.Key ;
-			this.bolHasParameter = token.HasParam ;
-			this.intParameter = token.Param ;
+			strKeyword = token.Key ;
+			bolHasParameter = token.HasParam ;
+			intParameter = token.Param ;
 			if( token.Type == RTFTokenType.Control )
 				intType = RTFNodeType.Control ;
 			else if( token.Type == RTFTokenType.Control )
@@ -70,9 +67,9 @@ namespace RtfDomParser
 			set
 			{
 				myOwnerDocument = value;
-				if( this.Nodes != null )
+				if( Nodes != null )
 				{
-					foreach( RTFNode node in this.Nodes )
+					foreach( RTFNode node in Nodes )
 					{
 						node.OwnerDocument = value ;
 					}
@@ -174,7 +171,7 @@ namespace RtfDomParser
 			{
 				if( myParent != null )
 				{
-					int index = myParent.Nodes.IndexOf( this );
+					var index = myParent.Nodes.IndexOf( this );
 					if( index > 0 )
 					{
 						return myParent.Nodes[ index - 1 ];
@@ -192,7 +189,7 @@ namespace RtfDomParser
 			{
 				if( myParent != null )
 				{
-					int index = myParent.Nodes.IndexOf( this );
+					var index = myParent.Nodes.IndexOf( this );
 					if( index >= 0 && index < myParent.Nodes.Count - 1 )
 						return myParent.Nodes[ index + 1 ] ;
 				}
@@ -210,22 +207,22 @@ namespace RtfDomParser
                 || intType == RTFNodeType.Keyword
                 || intType == RTFNodeType.ExtKeyword )
 			{
-                if (this.bolHasParameter)
+                if (bolHasParameter)
                 {
                     writer.WriteKeyword(
-                        this.strKeyword + this.intParameter, 
-                        this.intType == RTFNodeType.ExtKeyword);
+                        strKeyword + intParameter, 
+                        intType == RTFNodeType.ExtKeyword);
                 }
                 else
                 {
                     writer.WriteKeyword(
-                        this.strKeyword,
-                        this.intType == RTFNodeType.ExtKeyword);
+                        strKeyword,
+                        intType == RTFNodeType.ExtKeyword);
                 }
 			}
             else if (intType == RTFNodeType.Text)
             {
-                writer.WriteText(this.strKeyword);
+                writer.WriteText(strKeyword);
             }
 		}
 	}

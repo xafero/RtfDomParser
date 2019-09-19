@@ -10,7 +10,6 @@
 
 
 using System;
-using System.Text;
 using System.ComponentModel;
 using System.Collections;
 
@@ -137,7 +136,7 @@ namespace RtfDomParser
         /// <summary>
         /// height
         /// </summary>
-        [System.ComponentModel.DefaultValue(0)]
+        [DefaultValue(0)]
         public int Height
         {
             get
@@ -155,7 +154,7 @@ namespace RtfDomParser
         /// <summary>
         /// padding left
         /// </summary>
-        [System.ComponentModel.DefaultValue(int.MinValue)]
+        [DefaultValue(int.MinValue)]
         public int PaddingLeft
         {
             get
@@ -172,7 +171,7 @@ namespace RtfDomParser
         /// <summary>
         /// top padding
         /// </summary>
-        [System.ComponentModel.DefaultValue(int.MinValue)]
+        [DefaultValue(int.MinValue)]
         public int PaddingTop
         {
             get
@@ -191,7 +190,7 @@ namespace RtfDomParser
         /// <summary>
         /// right padding
         /// </summary>
-        [System.ComponentModel.DefaultValue(int.MinValue)]
+        [DefaultValue(int.MinValue)]
         public int PaddingRight
         {
             get
@@ -208,7 +207,7 @@ namespace RtfDomParser
         /// <summary>
         /// bottom padding
         /// </summary>
-        [System.ComponentModel.DefaultValue(int.MinValue)]
+        [DefaultValue(int.MinValue)]
         public int PaddingBottom
         {
             get
