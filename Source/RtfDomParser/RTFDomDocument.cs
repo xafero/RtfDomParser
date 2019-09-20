@@ -3644,6 +3644,10 @@ namespace RtfDomParser
                         break;
                 }//switch
             }//while
+
+            if (yr < 1 || mo < 1 || dy < 1 || hr < 0 || min < 0 || sec < 0)
+                return DateTime.MinValue;
+            
             return new DateTime(yr, mo, dy, hr, min, sec);
         }
 
